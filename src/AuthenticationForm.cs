@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FreelancePlatform.src;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,6 +35,29 @@ namespace FreelancePlatform
         private void loginButton_Click(object sender, EventArgs e)
         {
             var validationPass = CheckValidation(false);
+            if (validationPass)
+            {
+                var userType = GetUserType();
+
+                switch (userType)
+                {
+                    case "client":
+                        this.Hide();
+                        var clientProfileForm = new ClientProfileForm(1);
+                        clientProfileForm.Show();
+                        break;
+
+                    case "freelancer":
+                        this.Hide();
+                        var freelancerProfileForm = new FreelancerProfileForm(1);
+                        freelancerProfileForm.Show();
+                        break;
+
+                    default:
+                        MessageBox.Show("Something went wrong with user type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+            }
         }
 
         private String? GetUserType()
@@ -98,6 +122,11 @@ namespace FreelancePlatform
         private void registerButton_Click(object sender, EventArgs e)
         {
             var validationPass = CheckValidation(true);
+            if(validationPass)
+            {
+                // todo: registeration logic
+                MessageBox.Show("Registeration successful. Please login in again to continue!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
