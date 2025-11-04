@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FreelancePlatform.src
 {
-    public partial class FreelancerProfileForm : Form
+    public partial class FreelancerProfileForm : BaseForm
     {
         private int userId;
         public FreelancerProfileForm(int userId)
