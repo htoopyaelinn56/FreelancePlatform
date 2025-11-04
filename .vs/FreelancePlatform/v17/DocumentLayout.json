@@ -1,0 +1,155 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\CSharp Projects\\FreelancePlatform\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\authenticationform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:authenticationform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\baseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:baseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\freelanceplatform.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:freelanceplatform.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\authenticationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:authenticationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\authenticationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:authenticationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\baseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:baseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|d:\\csharp projects\\freelanceplatform\\fonthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A997862-A375-4D08-814E-680AD36C0CEF}|FreelancePlatform.csproj|solutionrelative:fonthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FontHelper.cs",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\FontHelper.cs",
+              "RelativeDocumentMoniker": "FontHelper.cs",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\FontHelper.cs",
+              "RelativeToolTip": "FontHelper.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBoAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:17:04.951Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BaseForm.cs",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\BaseForm.cs",
+              "RelativeDocumentMoniker": "BaseForm.cs",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\BaseForm.cs",
+              "RelativeToolTip": "BaseForm.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:30:39.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthenticationForm.cs [Design]",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\AuthenticationForm.cs",
+              "RelativeDocumentMoniker": "AuthenticationForm.cs",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\AuthenticationForm.cs [Design]",
+              "RelativeToolTip": "AuthenticationForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:21:12.338Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthenticationForm.cs",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\AuthenticationForm.cs",
+              "RelativeDocumentMoniker": "AuthenticationForm.cs",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\AuthenticationForm.cs",
+              "RelativeToolTip": "AuthenticationForm.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAIAwwBAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:16:23.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FreelancePlatform",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\FreelancePlatform.csproj",
+              "RelativeDocumentMoniker": "FreelancePlatform.csproj",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\FreelancePlatform.csproj",
+              "RelativeToolTip": "FreelancePlatform.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-03T11:14:09.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BaseForm.cs [Design]",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\BaseForm.cs",
+              "RelativeDocumentMoniker": "BaseForm.cs",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\BaseForm.cs [Design]",
+              "RelativeToolTip": "BaseForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:14:21.061Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:14:06.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthenticationForm.Designer.cs",
+              "DocumentMoniker": "D:\\CSharp Projects\\FreelancePlatform\\AuthenticationForm.Designer.cs",
+              "RelativeDocumentMoniker": "AuthenticationForm.Designer.cs",
+              "ToolTip": "D:\\CSharp Projects\\FreelancePlatform\\AuthenticationForm.Designer.cs",
+              "RelativeToolTip": "AuthenticationForm.Designer.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAWwCoAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:21:39.605Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
