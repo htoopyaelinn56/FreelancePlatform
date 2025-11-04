@@ -1,11 +1,13 @@
-﻿namespace FreelancePlatform
+﻿using FreelancePlatform.src;
+
+namespace FreelancePlatform
 {
     public partial class BaseForm : Form
     {
         public static Font GlobalFont;
         static BaseForm()
         {
-            var fontFamily = FontHelper.LoadFontFamily("FreelancePlatform.JetBrainsMono-Medium.ttf");
+            var fontFamily = FontHelper.LoadFontFamily("FreelancePlatform.src.JetBrainsMono-Medium.ttf");
             GlobalFont = new Font(fontFamily, 10f, FontStyle.Regular);
         }
 

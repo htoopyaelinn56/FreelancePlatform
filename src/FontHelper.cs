@@ -1,7 +1,7 @@
 ﻿using System.Drawing.Text;
 using System.Reflection;
 
-namespace FreelancePlatform
+namespace FreelancePlatform.src
 {
     public static class FontHelper
     {
@@ -28,7 +28,7 @@ namespace FreelancePlatform
                 {
                     fixed (byte* pFontData = fontData)
                     {
-                        privateFonts.AddMemoryFont((IntPtr)pFontData, fontData.Length);
+                        privateFonts.AddMemoryFont((nint)pFontData, fontData.Length);
                     }
                 }
             }

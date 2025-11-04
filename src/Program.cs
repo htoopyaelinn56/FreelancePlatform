@@ -1,4 +1,4 @@
-namespace FreelancePlatform
+namespace FreelancePlatform.src
 {
     internal static class Program
     {
