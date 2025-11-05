@@ -23,5 +23,12 @@ namespace FreelancePlatform.src
         {
 
         }
+
+        private void editProfileButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var editForm = new FreelancerProfileEditForm(this.userId);
+            editForm.Show();
+        }
     }
 }
