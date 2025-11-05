@@ -17,7 +17,6 @@ packages/
 *.log
 
 # Auto-generated files
-*.Designer.cs
 *.exe
 *.dll
 *.pdb
