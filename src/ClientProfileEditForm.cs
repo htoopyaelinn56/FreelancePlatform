@@ -12,14 +12,31 @@ namespace FreelancePlatform.src
 {
     public partial class ClientProfileEditForm : BaseForm
     {
-        public ClientProfileEditForm()
+        private int userId;
+        public ClientProfileEditForm(int userId)
         {
             InitializeComponent();
+            this.userId = userId;
         }
 
         private void ClientProfileEditForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void backArrowLabel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var clientProfile = new ClientProfileForm(this.userId);
+            clientProfile.Show();
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MessageBox.Show("Profile edited successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var clientProfile = new ClientProfileForm(this.userId);
+            clientProfile.Show();
         }
     }
 }
