@@ -61,8 +61,11 @@ namespace FreelancePlatform.src
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = freelancerDataGrid.Rows[e.RowIndex];
-                string freelancerName = row.Cells["Name"].Value?.ToString() ?? "";
-                MessageBox.Show($"You clicked on: {freelancerName}");
+                string idString = row.Cells["ID"].Value?.ToString() ?? "";
+                int id = int.Parse(idString);
+                this.Hide();
+                var freelancerProfileForm = new FreelancerProfileForm(id, this.userId, true);
+                freelancerProfileForm.Show();
             }
         }
     }

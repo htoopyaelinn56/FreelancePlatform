@@ -43,13 +43,14 @@
             dashboardButton = new Button();
             biddedProjectsButton = new Button();
             browseProjectsButton = new Button();
+            backArrowLabel = new Label();
             SuspendLayout();
             // 
             // freelancerProfileLabel
             // 
             freelancerProfileLabel.AutoSize = true;
             freelancerProfileLabel.Font = new Font("JetBrains Mono Medium", 16F);
-            freelancerProfileLabel.Location = new Point(58, 9);
+            freelancerProfileLabel.Location = new Point(48, 9);
             freelancerProfileLabel.Name = "freelancerProfileLabel";
             freelancerProfileLabel.Size = new Size(303, 36);
             freelancerProfileLabel.TabIndex = 0;
@@ -183,11 +184,24 @@
             browseProjectsButton.Text = "Browse Projects";
             browseProjectsButton.UseVisualStyleBackColor = true;
             // 
+            // backArrowLabel
+            // 
+            backArrowLabel.AutoSize = true;
+            backArrowLabel.Font = new Font("JetBrains Mono Medium", 16F);
+            backArrowLabel.Location = new Point(12, 9);
+            backArrowLabel.Name = "backArrowLabel";
+            backArrowLabel.Size = new Size(31, 36);
+            backArrowLabel.TabIndex = 35;
+            backArrowLabel.Text = "←";
+            backArrowLabel.Visible = false;
+            backArrowLabel.Click += backArrowLabel_Click;
+            // 
             // FreelancerProfileForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(backArrowLabel);
             Controls.Add(browseProjectsButton);
             Controls.Add(biddedProjectsButton);
             Controls.Add(dashboardButton);
@@ -227,5 +241,6 @@
         private Button dashboardButton;
         private Button biddedProjectsButton;
         private Button browseProjectsButton;
+        private Label backArrowLabel;
     }
 }
