@@ -49,7 +49,7 @@
             // 
             freelancerProfileLabel.AutoSize = true;
             freelancerProfileLabel.Font = new Font("JetBrains Mono Medium", 16F);
-            freelancerProfileLabel.Location = new Point(12, 9);
+            freelancerProfileLabel.Location = new Point(58, 9);
             freelancerProfileLabel.Name = "freelancerProfileLabel";
             freelancerProfileLabel.Size = new Size(303, 36);
             freelancerProfileLabel.TabIndex = 0;

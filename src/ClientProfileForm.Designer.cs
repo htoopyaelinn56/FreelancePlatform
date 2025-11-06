@@ -70,6 +70,7 @@
             viewFreelancerButton.TabIndex = 27;
             viewFreelancerButton.Text = "View Freelancers";
             viewFreelancerButton.UseVisualStyleBackColor = true;
+            viewFreelancerButton.Click += viewFreelancerButton_Click;
             // 
             // editProfileButton
             // 
@@ -157,7 +158,7 @@
             // 
             freelancerProfileLabel.AutoSize = true;
             freelancerProfileLabel.Font = new Font("JetBrains Mono Medium", 16F);
-            freelancerProfileLabel.Location = new Point(12, 9);
+            freelancerProfileLabel.Location = new Point(41, 9);
             freelancerProfileLabel.Name = "freelancerProfileLabel";
             freelancerProfileLabel.Size = new Size(239, 36);
             freelancerProfileLabel.TabIndex = 15;

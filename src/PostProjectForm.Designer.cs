@@ -69,7 +69,7 @@
             // 
             // postButton
             // 
-            postButton.Location = new Point(430, 384);
+            postButton.Location = new Point(430, 396);
             postButton.Name = "postButton";
             postButton.Size = new Size(94, 29);
             postButton.TabIndex = 48;
@@ -78,7 +78,7 @@
             // 
             // descriptionTextBox
             // 
-            descriptionTextBox.Location = new Point(185, 195);
+            descriptionTextBox.Location = new Point(185, 207);
             descriptionTextBox.Multiline = true;
             descriptionTextBox.Name = "descriptionTextBox";
             descriptionTextBox.Size = new Size(339, 106);
@@ -86,7 +86,7 @@
             // 
             // nameTextBox
             // 
-            nameTextBox.Location = new Point(185, 52);
+            nameTextBox.Location = new Point(185, 64);
             nameTextBox.Name = "nameTextBox";
             nameTextBox.Size = new Size(339, 29);
             nameTextBox.TabIndex = 44;
@@ -94,7 +94,7 @@
             // addressLabel
             // 
             addressLabel.AutoSize = true;
-            addressLabel.Location = new Point(14, 160);
+            addressLabel.Location = new Point(14, 172);
             addressLabel.Name = "addressLabel";
             addressLabel.Size = new Size(70, 22);
             addressLabel.TabIndex = 43;
@@ -103,7 +103,7 @@
             // emailLabel
             // 
             emailLabel.AutoSize = true;
-            emailLabel.Location = new Point(14, 125);
+            emailLabel.Location = new Point(14, 137);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new Size(70, 22);
             emailLabel.TabIndex = 42;
@@ -112,7 +112,7 @@
             // phoneLabel
             // 
             phoneLabel.AutoSize = true;
-            phoneLabel.Location = new Point(14, 90);
+            phoneLabel.Location = new Point(14, 102);
             phoneLabel.Name = "phoneLabel";
             phoneLabel.Size = new Size(90, 22);
             phoneLabel.TabIndex = 41;
@@ -121,7 +121,7 @@
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new Point(14, 55);
+            nameLabel.Location = new Point(14, 67);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new Size(50, 22);
             nameLabel.TabIndex = 40;
@@ -130,7 +130,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(14, 191);
+            label1.Location = new Point(14, 203);
             label1.Name = "label1";
             label1.Size = new Size(120, 22);
             label1.TabIndex = 49;
@@ -138,14 +138,14 @@
             // 
             // skillsTextBox
             // 
-            skillsTextBox.Location = new Point(185, 160);
+            skillsTextBox.Location = new Point(185, 172);
             skillsTextBox.Name = "skillsTextBox";
             skillsTextBox.Size = new Size(339, 29);
             skillsTextBox.TabIndex = 50;
             // 
             // deadlineDatePicker
             // 
-            deadlineDatePicker.Location = new Point(185, 90);
+            deadlineDatePicker.Location = new Point(185, 102);
             deadlineDatePicker.Name = "deadlineDatePicker";
             deadlineDatePicker.Size = new Size(339, 29);
             deadlineDatePicker.TabIndex = 51;
@@ -153,7 +153,7 @@
             // budgetNumericDropdown
             // 
             budgetNumericDropdown.Increment = new decimal(new int[] { 100, 0, 0, 0 });
-            budgetNumericDropdown.Location = new Point(185, 125);
+            budgetNumericDropdown.Location = new Point(185, 137);
             budgetNumericDropdown.Maximum = new decimal(new int[] { 276447231, 23283, 0, 0 });
             budgetNumericDropdown.Name = "budgetNumericDropdown";
             budgetNumericDropdown.Size = new Size(150, 29);
@@ -164,7 +164,7 @@
             // budgetDollarPerHourLabel
             // 
             budgetDollarPerHourLabel.AutoSize = true;
-            budgetDollarPerHourLabel.Location = new Point(341, 127);
+            budgetDollarPerHourLabel.Location = new Point(341, 139);
             budgetDollarPerHourLabel.Name = "budgetDollarPerHourLabel";
             budgetDollarPerHourLabel.Size = new Size(50, 22);
             budgetDollarPerHourLabel.TabIndex = 53;

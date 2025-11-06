@@ -37,5 +37,12 @@ namespace FreelancePlatform.src
             var postProjectForm = new PostProjectForm(userId);
             postProjectForm.Show();
         }
+
+        private void viewFreelancerButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var freelancerListForm = new FreelancerListForm(userId);
+            freelancerListForm.Show();
+        }
     }
 }
