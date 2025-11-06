@@ -30,6 +30,8 @@
         {
             backArrowLabel = new Label();
             bidAgreementLabel = new Label();
+            bidAgreementDataGrid = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)bidAgreementDataGrid).BeginInit();
             SuspendLayout();
             // 
             // backArrowLabel
@@ -54,16 +56,28 @@
             bidAgreementLabel.Text = "Bid Agreement";
             bidAgreementLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // bidAgreementDataGrid
+            // 
+            bidAgreementDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            bidAgreementDataGrid.Location = new Point(12, 60);
+            bidAgreementDataGrid.Name = "bidAgreementDataGrid";
+            bidAgreementDataGrid.RowHeadersWidth = 51;
+            bidAgreementDataGrid.Size = new Size(1060, 434);
+            bidAgreementDataGrid.TabIndex = 41;
+            bidAgreementDataGrid.CellClick += dataGridView1_CellClick;
+            // 
             // BidAgreementForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1084, 506);
+            Controls.Add(bidAgreementDataGrid);
             Controls.Add(backArrowLabel);
             Controls.Add(bidAgreementLabel);
             Name = "BidAgreementForm";
             Text = "Bid Agreement";
             Load += BidAgreementForm_Load;
+            ((System.ComponentModel.ISupportInitialize)bidAgreementDataGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -72,5 +86,6 @@
 
         private Label backArrowLabel;
         private Label bidAgreementLabel;
+        private DataGridView bidAgreementDataGrid;
     }
 }
