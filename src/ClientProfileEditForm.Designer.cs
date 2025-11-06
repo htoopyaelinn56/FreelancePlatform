@@ -32,12 +32,12 @@
             emailLabel = new Label();
             phoneLabel = new Label();
             nameLabel = new Label();
-            freelancerProfileLabel = new Label();
+            clientProfileLabel = new Label();
             backArrowLabel = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            nameTextBox = new TextBox();
+            addressTextBox = new TextBox();
+            emailTextBox = new TextBox();
+            phoneTextBox = new TextBox();
             editButton = new Button();
             SuspendLayout();
             // 
@@ -77,16 +77,16 @@
             nameLabel.TabIndex = 26;
             nameLabel.Text = "Name";
             // 
-            // freelancerProfileLabel
+            // clientProfileLabel
             // 
-            freelancerProfileLabel.AutoSize = true;
-            freelancerProfileLabel.Font = new Font("JetBrains Mono Medium", 16F);
-            freelancerProfileLabel.Location = new Point(51, 9);
-            freelancerProfileLabel.Name = "freelancerProfileLabel";
-            freelancerProfileLabel.Size = new Size(239, 36);
-            freelancerProfileLabel.TabIndex = 25;
-            freelancerProfileLabel.Text = "Client Profile";
-            freelancerProfileLabel.TextAlign = ContentAlignment.MiddleCenter;
+            clientProfileLabel.AutoSize = true;
+            clientProfileLabel.Font = new Font("JetBrains Mono Medium", 16F);
+            clientProfileLabel.Location = new Point(51, 9);
+            clientProfileLabel.Name = "clientProfileLabel";
+            clientProfileLabel.Size = new Size(239, 36);
+            clientProfileLabel.TabIndex = 25;
+            clientProfileLabel.Text = "Client Profile";
+            clientProfileLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // backArrowLabel
             // 
@@ -99,34 +99,34 @@
             backArrowLabel.Text = "←";
             backArrowLabel.Click += backArrowLabel_Click;
             // 
-            // textBox1
+            // nameTextBox
             // 
-            textBox1.Location = new Point(183, 59);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(205, 29);
-            textBox1.TabIndex = 35;
+            nameTextBox.Location = new Point(183, 59);
+            nameTextBox.Name = "nameTextBox";
+            nameTextBox.Size = new Size(205, 29);
+            nameTextBox.TabIndex = 35;
             // 
-            // textBox2
+            // addressTextBox
             // 
-            textBox2.Location = new Point(183, 164);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(205, 106);
-            textBox2.TabIndex = 36;
+            addressTextBox.Location = new Point(183, 164);
+            addressTextBox.Multiline = true;
+            addressTextBox.Name = "addressTextBox";
+            addressTextBox.Size = new Size(205, 106);
+            addressTextBox.TabIndex = 36;
             // 
-            // textBox3
+            // emailTextBox
             // 
-            textBox3.Location = new Point(183, 129);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(205, 29);
-            textBox3.TabIndex = 37;
+            emailTextBox.Location = new Point(183, 129);
+            emailTextBox.Name = "emailTextBox";
+            emailTextBox.Size = new Size(205, 29);
+            emailTextBox.TabIndex = 37;
             // 
-            // textBox4
+            // phoneTextBox
             // 
-            textBox4.Location = new Point(183, 94);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(205, 29);
-            textBox4.TabIndex = 38;
+            phoneTextBox.Location = new Point(183, 94);
+            phoneTextBox.Name = "phoneTextBox";
+            phoneTextBox.Size = new Size(205, 29);
+            phoneTextBox.TabIndex = 38;
             // 
             // editButton
             // 
@@ -144,16 +144,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(editButton);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(phoneTextBox);
+            Controls.Add(emailTextBox);
+            Controls.Add(addressTextBox);
+            Controls.Add(nameTextBox);
             Controls.Add(backArrowLabel);
             Controls.Add(addressLabel);
             Controls.Add(emailLabel);
             Controls.Add(phoneLabel);
             Controls.Add(nameLabel);
-            Controls.Add(freelancerProfileLabel);
+            Controls.Add(clientProfileLabel);
             Name = "ClientProfileEditForm";
             Text = "Client Profile Edit";
             Load += ClientProfileEditForm_Load;
@@ -166,12 +166,12 @@
         private Label emailLabel;
         private Label phoneLabel;
         private Label nameLabel;
-        private Label freelancerProfileLabel;
+        private Label clientProfileLabel;
         private Label backArrowLabel;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox nameTextBox;
+        private TextBox addressTextBox;
+        private TextBox emailTextBox;
+        private TextBox phoneTextBox;
         private Button editButton;
     }
 }

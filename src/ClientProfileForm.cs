@@ -30,5 +30,12 @@ namespace FreelancePlatform.src
             var editForm = new ClientProfileEditForm(userId);
             editForm.Show();
         }
+
+        private void postProjectButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var postProjectForm = new PostProjectForm(userId);
+            postProjectForm.Show();
+        }
     }
 }

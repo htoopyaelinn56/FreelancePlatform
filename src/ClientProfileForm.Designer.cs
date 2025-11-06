@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            postProjectsButton = new Button();
+            postProjectButton = new Button();
             biddedProjectsButton = new Button();
             viewFreelancerButton = new Button();
             editProfileButton = new Button();
@@ -43,14 +43,15 @@
             freelancerProfileLabel = new Label();
             SuspendLayout();
             // 
-            // postProjectsButton
+            // postProjectButton
             // 
-            postProjectsButton.Location = new Point(565, 256);
-            postProjectsButton.Name = "postProjectsButton";
-            postProjectsButton.Size = new Size(181, 29);
-            postProjectsButton.TabIndex = 29;
-            postProjectsButton.Text = "Post Projects";
-            postProjectsButton.UseVisualStyleBackColor = true;
+            postProjectButton.Location = new Point(565, 256);
+            postProjectButton.Name = "postProjectButton";
+            postProjectButton.Size = new Size(181, 29);
+            postProjectButton.TabIndex = 29;
+            postProjectButton.Text = "Post Project";
+            postProjectButton.UseVisualStyleBackColor = true;
+            postProjectButton.Click += postProjectButton_Click;
             // 
             // biddedProjectsButton
             // 
@@ -168,7 +169,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(postProjectsButton);
+            Controls.Add(postProjectButton);
             Controls.Add(biddedProjectsButton);
             Controls.Add(viewFreelancerButton);
             Controls.Add(editProfileButton);
@@ -190,7 +191,7 @@
 
         #endregion
 
-        private Button postProjectsButton;
+        private Button postProjectButton;
         private Button biddedProjectsButton;
         private Button viewFreelancerButton;
         private Button editProfileButton;
