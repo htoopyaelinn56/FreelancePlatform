@@ -95,7 +95,7 @@
             Controls.Add(backArrowLabel);
             Controls.Add(freelancersLabel);
             Name = "FreelancerListForm";
-            Text = "FreelancerListForm";
+            Text = "Freelancer List";
             Load += FreelancerListForm_Load;
             ((System.ComponentModel.ISupportInitialize)freelancerDataGrid).EndInit();
             ResumeLayout(false);

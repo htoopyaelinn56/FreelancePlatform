@@ -17,8 +17,8 @@ namespace FreelancePlatform.src
         // variable to put client userId when navigate back to freelancer list
         private int? clientId;
         private bool fromFreelancerList;
-        
-        public FreelancerProfileForm(int userId, int? clientId = null,  bool fromFreelancerList = false)
+
+        public FreelancerProfileForm(int userId, int? clientId = null, bool fromFreelancerList = false)
         {
             InitializeComponent();
             this.userId = userId;
@@ -50,6 +50,13 @@ namespace FreelancePlatform.src
             this.Hide();
             var freelancerListForm = new FreelancerListForm((int)this.clientId!);
             freelancerListForm.Show();
+        }
+
+        private void biddedProjectsButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var bidAgreementForm = new BidAgreementForm(userId, false);
+            bidAgreementForm.Show();
         }
     }
 }

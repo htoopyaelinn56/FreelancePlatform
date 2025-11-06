@@ -61,6 +61,7 @@
             biddedProjectsButton.TabIndex = 28;
             biddedProjectsButton.Text = "Bidded Projects";
             biddedProjectsButton.UseVisualStyleBackColor = true;
+            biddedProjectsButton.Click += biddedProjectsButton_Click;
             // 
             // viewFreelancerButton
             // 

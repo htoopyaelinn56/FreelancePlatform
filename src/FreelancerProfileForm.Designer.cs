@@ -174,6 +174,7 @@
             biddedProjectsButton.TabIndex = 13;
             biddedProjectsButton.Text = "Bidded Projects";
             biddedProjectsButton.UseVisualStyleBackColor = true;
+            biddedProjectsButton.Click += biddedProjectsButton_Click;
             // 
             // browseProjectsButton
             // 
