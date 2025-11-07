@@ -17,6 +17,7 @@ namespace FreelancePlatform
     public partial class AuthenticationForm : BaseForm
     {
         bool showPassword = false;
+        private Repository repository = new Repository();
         public AuthenticationForm()
         {
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace FreelancePlatform
             {
                 try
                 {
-                    var result = loginToSystem();
+                    var result = repository.login(userNameTextBox.Text, passwordTextBox.Text);
                     var userType = result.userType;
                     var userId = result.userId;
 
@@ -138,7 +139,7 @@ namespace FreelancePlatform
             {
                 try
                 {
-                    registerIntoUserTable();
+                    repository.register(userNameTextBox.Text, passwordTextBox.Text, GetUserType()!);
                     MessageBox.Show("Registeration successful. Please login in again to continue!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
@@ -146,107 +147,6 @@ namespace FreelancePlatform
                     MessageBox.Show(ex.Message, "Registeration failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void registerIntoUserTable()
-        {
-            string username = userNameTextBox.Text.Trim();
-            string password = passwordTextBox.Text.Trim();
-            string userType = GetUserType()!; // "freelancer" or "client", can null check because it is valided before inserting
-
-            try
-            {
-                var conn = DatabaseService.GetConnection();
-
-                string countQuery = "SELECT COUNT(*) FROM Users WHERE username = @username;";
-                using (var countCmd = new MySqlCommand(countQuery, conn))
-                {
-                    countCmd.Parameters.AddWithValue("@username", username);
-                    var count = Convert.ToInt32(countCmd.ExecuteScalar());
-                    if (count != 0)
-                    {
-                        throw new ApplicationException("Username already exists. Please choose another username.");
-                    }
-                }
-
-                string insertUserQuery = @"
-                    INSERT INTO Users (username, password, type)
-                    VALUES (@username, @password, @type);";
-
-                long userId; 
-                using (var cmd = new MySqlCommand(insertUserQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password);
-                    cmd.Parameters.AddWithValue("@type", userType);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected == 0)
-                        throw new ApplicationException("Failed to insert user. Please try again.");
-
-                    userId = cmd.LastInsertedId;
-                }
-                if (userType == "client")
-                {
-                    string insertClientQuery = @"
-                        INSERT INTO Clients (user_id, address, company_name)
-                        VALUES (@userId, '', '');"; 
-                    using (var cmd = new MySqlCommand(insertClientQuery, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@userId", userId);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                else if (userType == "freelancer")
-                {
-                    string insertFreelancerQuery = @"
-                        INSERT INTO Freelancers (user_id, skills, expertise, portfolio, pastwork)
-                        VALUES (@userId, '', '', '', '');";
-                    using (var cmd = new MySqlCommand(insertFreelancerQuery, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@userId", userId);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (MySqlException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private (int userId, string userType) loginToSystem()
-        {
-            var userName = userNameTextBox.Text.Trim();
-            var password = passwordTextBox.Text.Trim();
-
-            var conn = DatabaseService.GetConnection();
-            string query = @"
-                    SELECT id, type FROM Users 
-                    WHERE username = @username AND password = @password;";
-            using (var cmd = new MySqlCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("@username", userName);
-                cmd.Parameters.AddWithValue("@password", password);
-                using (var reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        int userId = reader.GetInt32("id");
-                        string userType = reader.GetString("type");
-                        return (userId, userType);
-                    }
-                    else
-                    {
-                        throw new ApplicationException("Invalid Credentials. Please check your username and password.");
-                    }
-                }
-            }
-
         }
     }
 }
