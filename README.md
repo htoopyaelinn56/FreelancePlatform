@@ -1,3 +1,3 @@
 # Todo
 
-Bidded -> Bid (Typo)
+~~Bidded -> Bid (Typo)~~
