@@ -122,9 +122,10 @@ namespace FreelancePlatform.src
                 }
                 else if (status == "posted" || status == "confirmed" || status == "completed")
                 {
-                    // Details button
-                    MessageBox.Show($"Viewing details for project ID: {projectId}");
-
+                    this.Hide();
+                    int projectIdInteger = int.Parse(projectId);
+                    var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: this.isClient, projectId: projectIdInteger, fromBidAgreement : true);
+                    projectDetailForm.Show();
                 }
             }
             else if (buttonName == "Action 2")

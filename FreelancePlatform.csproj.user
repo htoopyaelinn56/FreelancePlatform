@@ -28,5 +28,8 @@
     <Compile Update="src\PostProjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="src\ProjectDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
