@@ -32,6 +32,8 @@
             browseProjectLabel = new Label();
             searchButton = new Button();
             searchTextField = new TextBox();
+            projectsGrid = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)projectsGrid).BeginInit();
             SuspendLayout();
             // 
             // backArrowLabel
@@ -58,7 +60,7 @@
             // 
             // searchButton
             // 
-            searchButton.Location = new Point(699, 19);
+            searchButton.Location = new Point(811, 16);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(94, 29);
             searchButton.TabIndex = 44;
@@ -67,16 +69,27 @@
             // 
             // searchTextField
             // 
-            searchTextField.Location = new Point(486, 18);
+            searchTextField.Location = new Point(598, 15);
             searchTextField.Name = "searchTextField";
             searchTextField.Size = new Size(207, 29);
             searchTextField.TabIndex = 43;
+            // 
+            // projectsGrid
+            // 
+            projectsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            projectsGrid.Location = new Point(16, 61);
+            projectsGrid.Name = "projectsGrid";
+            projectsGrid.RowHeadersWidth = 51;
+            projectsGrid.Size = new Size(889, 525);
+            projectsGrid.TabIndex = 45;
+            projectsGrid.CellClick += projectsGrid_CellClick;
             // 
             // BrowseProjectsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(917, 598);
+            Controls.Add(projectsGrid);
             Controls.Add(searchButton);
             Controls.Add(searchTextField);
             Controls.Add(backArrowLabel);
@@ -84,6 +97,7 @@
             Name = "BrowseProjectsForm";
             Text = "Browse Projects";
             Load += BrowseProjectsForm_Load;
+            ((System.ComponentModel.ISupportInitialize)projectsGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,5 +108,6 @@
         private Label browseProjectLabel;
         private Button searchButton;
         private TextBox searchTextField;
+        private DataGridView projectsGrid;
     }
 }
