@@ -59,7 +59,7 @@
             bidProjectsButton.Name = "bidProjectsButton";
             bidProjectsButton.Size = new Size(187, 29);
             bidProjectsButton.TabIndex = 28;
-            bidProjectsButton.Text = "bid Projects";
+            bidProjectsButton.Text = "Bid Projects";
             bidProjectsButton.UseVisualStyleBackColor = true;
             bidProjectsButton.Click += bidProjectsButton_Click;
             // 
