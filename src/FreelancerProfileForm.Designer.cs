@@ -44,6 +44,10 @@
             bidProjectsButton = new Button();
             browseProjectsButton = new Button();
             backArrowLabel = new Label();
+            emailValue = new Label();
+            phoneValue = new Label();
+            emailLabel = new Label();
+            phoneLabel = new Label();
             SuspendLayout();
             // 
             // freelancerProfileLabel
@@ -69,7 +73,7 @@
             // skillsLabel
             // 
             skillsLabel.AutoSize = true;
-            skillsLabel.Location = new Point(12, 93);
+            skillsLabel.Location = new Point(15, 159);
             skillsLabel.Name = "skillsLabel";
             skillsLabel.Size = new Size(70, 22);
             skillsLabel.TabIndex = 2;
@@ -78,7 +82,7 @@
             // expertiseLabel
             // 
             expertiseLabel.AutoSize = true;
-            expertiseLabel.Location = new Point(12, 125);
+            expertiseLabel.Location = new Point(15, 191);
             expertiseLabel.Name = "expertiseLabel";
             expertiseLabel.Size = new Size(100, 22);
             expertiseLabel.TabIndex = 3;
@@ -87,7 +91,7 @@
             // portfolioLabel
             // 
             portfolioLabel.AutoSize = true;
-            portfolioLabel.Location = new Point(12, 157);
+            portfolioLabel.Location = new Point(15, 223);
             portfolioLabel.Name = "portfolioLabel";
             portfolioLabel.Size = new Size(100, 22);
             portfolioLabel.TabIndex = 4;
@@ -96,7 +100,7 @@
             // pastWorkLabel
             // 
             pastWorkLabel.AutoSize = true;
-            pastWorkLabel.Location = new Point(12, 190);
+            pastWorkLabel.Location = new Point(15, 256);
             pastWorkLabel.Name = "pastWorkLabel";
             pastWorkLabel.Size = new Size(100, 22);
             pastWorkLabel.TabIndex = 5;
@@ -105,7 +109,7 @@
             // nameValue
             // 
             nameValue.AutoSize = true;
-            nameValue.Location = new Point(191, 190);
+            nameValue.Location = new Point(194, 256);
             nameValue.Name = "nameValue";
             nameValue.Size = new Size(160, 22);
             nameValue.TabIndex = 10;
@@ -114,7 +118,7 @@
             // skillsValue
             // 
             skillsValue.AutoSize = true;
-            skillsValue.Location = new Point(191, 157);
+            skillsValue.Location = new Point(194, 223);
             skillsValue.Name = "skillsValue";
             skillsValue.Size = new Size(160, 22);
             skillsValue.TabIndex = 9;
@@ -123,7 +127,7 @@
             // expertiseValue
             // 
             expertiseValue.AutoSize = true;
-            expertiseValue.Location = new Point(191, 125);
+            expertiseValue.Location = new Point(194, 191);
             expertiseValue.Name = "expertiseValue";
             expertiseValue.Size = new Size(170, 22);
             expertiseValue.TabIndex = 8;
@@ -132,7 +136,7 @@
             // portfolioValue
             // 
             portfolioValue.AutoSize = true;
-            portfolioValue.Location = new Point(191, 93);
+            portfolioValue.Location = new Point(194, 159);
             portfolioValue.Name = "portfolioValue";
             portfolioValue.Size = new Size(130, 22);
             portfolioValue.TabIndex = 7;
@@ -149,7 +153,7 @@
             // 
             // editProfileButton
             // 
-            editProfileButton.Location = new Point(12, 256);
+            editProfileButton.Location = new Point(15, 382);
             editProfileButton.Name = "editProfileButton";
             editProfileButton.Size = new Size(165, 29);
             editProfileButton.TabIndex = 11;
@@ -159,7 +163,7 @@
             // 
             // dashboardButton
             // 
-            dashboardButton.Location = new Point(183, 256);
+            dashboardButton.Location = new Point(186, 382);
             dashboardButton.Name = "dashboardButton";
             dashboardButton.Size = new Size(115, 29);
             dashboardButton.TabIndex = 12;
@@ -169,7 +173,7 @@
             // 
             // bidProjectsButton
             // 
-            bidProjectsButton.Location = new Point(304, 256);
+            bidProjectsButton.Location = new Point(307, 382);
             bidProjectsButton.Name = "bidProjectsButton";
             bidProjectsButton.Size = new Size(187, 29);
             bidProjectsButton.TabIndex = 13;
@@ -179,7 +183,7 @@
             // 
             // browseProjectsButton
             // 
-            browseProjectsButton.Location = new Point(497, 256);
+            browseProjectsButton.Location = new Point(500, 382);
             browseProjectsButton.Name = "browseProjectsButton";
             browseProjectsButton.Size = new Size(181, 29);
             browseProjectsButton.TabIndex = 14;
@@ -199,11 +203,51 @@
             backArrowLabel.Visible = false;
             backArrowLabel.Click += backArrowLabel_Click;
             // 
+            // emailValue
+            // 
+            emailValue.AutoSize = true;
+            emailValue.Location = new Point(191, 126);
+            emailValue.Name = "emailValue";
+            emailValue.Size = new Size(120, 22);
+            emailValue.TabIndex = 40;
+            emailValue.Text = "Email Value";
+            // 
+            // phoneValue
+            // 
+            phoneValue.AutoSize = true;
+            phoneValue.Location = new Point(191, 94);
+            phoneValue.Name = "phoneValue";
+            phoneValue.Size = new Size(120, 22);
+            phoneValue.TabIndex = 39;
+            phoneValue.Text = "Phone Value";
+            // 
+            // emailLabel
+            // 
+            emailLabel.AutoSize = true;
+            emailLabel.Location = new Point(12, 126);
+            emailLabel.Name = "emailLabel";
+            emailLabel.Size = new Size(60, 22);
+            emailLabel.TabIndex = 37;
+            emailLabel.Text = "Email";
+            // 
+            // phoneLabel
+            // 
+            phoneLabel.AutoSize = true;
+            phoneLabel.Location = new Point(12, 94);
+            phoneLabel.Name = "phoneLabel";
+            phoneLabel.Size = new Size(60, 22);
+            phoneLabel.TabIndex = 36;
+            phoneLabel.Text = "Phone";
+            // 
             // FreelancerProfileForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(emailValue);
+            Controls.Add(phoneValue);
+            Controls.Add(emailLabel);
+            Controls.Add(phoneLabel);
             Controls.Add(backArrowLabel);
             Controls.Add(browseProjectsButton);
             Controls.Add(bidProjectsButton);
@@ -245,5 +289,9 @@
         private Button bidProjectsButton;
         private Button browseProjectsButton;
         private Label backArrowLabel;
+        private Label emailValue;
+        private Label phoneValue;
+        private Label emailLabel;
+        private Label phoneLabel;
     }
 }

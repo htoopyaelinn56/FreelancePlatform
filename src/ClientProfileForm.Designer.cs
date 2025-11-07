@@ -41,6 +41,8 @@
             phoneLabel = new Label();
             nameLabel = new Label();
             freelancerProfileLabel = new Label();
+            companyNameValue = new Label();
+            companyNameLabel = new Label();
             SuspendLayout();
             // 
             // postProjectButton
@@ -86,7 +88,7 @@
             // addressValue
             // 
             addressValue.AutoSize = true;
-            addressValue.Location = new Point(191, 157);
+            addressValue.Location = new Point(191, 192);
             addressValue.Name = "addressValue";
             addressValue.Size = new Size(140, 22);
             addressValue.TabIndex = 24;
@@ -122,7 +124,7 @@
             // addressLabel
             // 
             addressLabel.AutoSize = true;
-            addressLabel.Location = new Point(12, 157);
+            addressLabel.Location = new Point(12, 192);
             addressLabel.Name = "addressLabel";
             addressLabel.Size = new Size(80, 22);
             addressLabel.TabIndex = 19;
@@ -166,11 +168,31 @@
             freelancerProfileLabel.Text = "Client Profile";
             freelancerProfileLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // companyNameValue
+            // 
+            companyNameValue.AutoSize = true;
+            companyNameValue.Location = new Point(191, 157);
+            companyNameValue.Name = "companyNameValue";
+            companyNameValue.Size = new Size(190, 22);
+            companyNameValue.TabIndex = 31;
+            companyNameValue.Text = "Company Name Value";
+            // 
+            // companyNameLabel
+            // 
+            companyNameLabel.AutoSize = true;
+            companyNameLabel.Location = new Point(12, 157);
+            companyNameLabel.Name = "companyNameLabel";
+            companyNameLabel.Size = new Size(130, 22);
+            companyNameLabel.TabIndex = 30;
+            companyNameLabel.Text = "Company Name";
+            // 
             // ClientProfileForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(companyNameValue);
+            Controls.Add(companyNameLabel);
             Controls.Add(postProjectButton);
             Controls.Add(bidProjectsButton);
             Controls.Add(viewFreelancerButton);
@@ -206,5 +228,7 @@
         private Label phoneLabel;
         private Label nameLabel;
         private Label freelancerProfileLabel;
+        private Label companyNameValue;
+        private Label companyNameLabel;
     }
 }

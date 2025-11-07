@@ -8,7 +8,7 @@ namespace FreelancePlatform.src
 
         // Change to your own credentials
         private static readonly string _connectionString =
-            "server=localhost;user=root;password=root;database=world;";
+            "server=localhost;user=root;password=root;database=freelance_platform;";
 
         public static void Initialize()
         {

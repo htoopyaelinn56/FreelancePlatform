@@ -39,12 +39,14 @@
             emailTextBox = new TextBox();
             phoneTextBox = new TextBox();
             editButton = new Button();
+            companyNameTextBox = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // addressLabel
             // 
             addressLabel.AutoSize = true;
-            addressLabel.Location = new Point(12, 167);
+            addressLabel.Location = new Point(12, 202);
             addressLabel.Name = "addressLabel";
             addressLabel.Size = new Size(80, 22);
             addressLabel.TabIndex = 29;
@@ -108,7 +110,7 @@
             // 
             // addressTextBox
             // 
-            addressTextBox.Location = new Point(183, 164);
+            addressTextBox.Location = new Point(183, 199);
             addressTextBox.Multiline = true;
             addressTextBox.Name = "addressTextBox";
             addressTextBox.Size = new Size(205, 106);
@@ -138,11 +140,29 @@
             editButton.UseVisualStyleBackColor = true;
             editButton.Click += editButton_Click;
             // 
+            // companyNameTextBox
+            // 
+            companyNameTextBox.Location = new Point(183, 164);
+            companyNameTextBox.Name = "companyNameTextBox";
+            companyNameTextBox.Size = new Size(205, 29);
+            companyNameTextBox.TabIndex = 41;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 167);
+            label1.Name = "label1";
+            label1.Size = new Size(130, 22);
+            label1.TabIndex = 40;
+            label1.Text = "Company Name";
+            // 
             // ClientProfileEditForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(companyNameTextBox);
+            Controls.Add(label1);
             Controls.Add(editButton);
             Controls.Add(phoneTextBox);
             Controls.Add(emailTextBox);
@@ -173,5 +193,7 @@
         private TextBox emailTextBox;
         private TextBox phoneTextBox;
         private Button editButton;
+        private TextBox companyNameTextBox;
+        private Label label1;
     }
 }
