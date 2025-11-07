@@ -30,6 +30,8 @@
         {
             backArrowLabel = new Label();
             dashboardLabel = new Label();
+            projectsGrid = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)projectsGrid).BeginInit();
             SuspendLayout();
             // 
             // backArrowLabel
@@ -54,16 +56,28 @@
             dashboardLabel.Text = "Dashboard";
             dashboardLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // projectsGrid
+            // 
+            projectsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            projectsGrid.Location = new Point(12, 59);
+            projectsGrid.Name = "projectsGrid";
+            projectsGrid.RowHeadersWidth = 51;
+            projectsGrid.Size = new Size(889, 514);
+            projectsGrid.TabIndex = 46;
+            projectsGrid.CellClick += projectsGrid_CellClick;
+            // 
             // DashboardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(913, 588);
+            Controls.Add(projectsGrid);
             Controls.Add(backArrowLabel);
             Controls.Add(dashboardLabel);
             Name = "DashboardForm";
             Text = "Dashboard Form";
             Load += DashboardForm_Load;
+            ((System.ComponentModel.ISupportInitialize)projectsGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -72,5 +86,6 @@
 
         private Label backArrowLabel;
         private Label dashboardLabel;
+        private DataGridView projectsGrid;
     }
 }

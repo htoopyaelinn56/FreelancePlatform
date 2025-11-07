@@ -17,7 +17,8 @@ namespace FreelancePlatform.src
         private int projectId;
         private bool fromBidAgreement;
         private bool fromBrowseProjects;
-        public ProjectDetailForm(int userId, bool isClient, int projectId, bool fromBidAgreement = false, bool fromBrowseProjects = false)
+        private bool fromDashboard;
+        public ProjectDetailForm(int userId, bool isClient, int projectId, bool fromBidAgreement = false, bool fromBrowseProjects = false, bool fromDashboard = false)
         {
             InitializeComponent();
             this.userId = userId;
@@ -25,20 +26,27 @@ namespace FreelancePlatform.src
             this.projectId = projectId;
             this.fromBidAgreement = fromBidAgreement;
             this.fromBrowseProjects = fromBrowseProjects;
+            this.fromDashboard = fromDashboard;
         }
 
         private void ProjectDetailForm_Load(object sender, EventArgs e)
         {
             if (!this.isClient)
             {
-                this.bidAmountValue.Visible = false;
-                this.bidAmountDropdown.Visible = true;
-                this.bidAmountPerHourLabel.Visible = true;
                 this.reviewButton.Visible = false;
-                this.bidButton.Visible = true;
 
-                // show when coming from dashboard
-                // this.completeButton.Visible = true;
+                if (this.fromBidAgreement || this.fromBrowseProjects)
+                {
+                    this.bidButton.Visible = true;
+                    this.bidAmountDropdown.Visible = true;
+                    this.bidAmountPerHourLabel.Visible = true;
+                    this.bidAmountValue.Visible = false;
+                }
+
+                if (this.fromDashboard)
+                {
+                    this.completeButton.Visible = true;
+                }
             }
         }
 
@@ -56,6 +64,11 @@ namespace FreelancePlatform.src
                 var browseProjetsForm = new BrowseProjectsForm(this.userId);
                 browseProjetsForm.Show();
             }
+            else if (this.fromDashboard)
+            {
+                var dashboardForm = new DashboardForm(this.userId);
+                dashboardForm.Show();
+            }
         }
 
         private void reviewButton_Click(object sender, EventArgs e)
@@ -70,6 +83,14 @@ namespace FreelancePlatform.src
             this.Hide();
             MessageBox.Show("Bidded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             var browseProjetsForm = new BrowseProjectsForm(this.userId);
+            browseProjetsForm.Show();
+        }
+
+        private void completeButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MessageBox.Show("Completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var browseProjetsForm = new DashboardForm(this.userId);
             browseProjetsForm.Show();
         }
     }

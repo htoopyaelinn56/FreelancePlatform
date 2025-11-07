@@ -271,6 +271,7 @@
             completeButton.Text = "Complete";
             completeButton.UseVisualStyleBackColor = true;
             completeButton.Visible = false;
+            completeButton.Click += completeButton_Click;
             // 
             // ProjectDetailForm
             // 
