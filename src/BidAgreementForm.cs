@@ -58,7 +58,7 @@ namespace FreelancePlatform.src
         { "1", "Website Design", "Design a website for shop", "2025-12-10", "500", "UI/UX", "posted" },
         { "2", "Mobile App", "Flutter app for e-commerce", "2025-12-20", "1000", "Flutter,Dart", "bidded" },
         { "3", "Data Analysis", "Analyze sales data", "2025-11-30", "300", "Python,ML", "confirmed" },
-        { "4", "Logo Design", "Logo for new brand", "2025-12-05", "100", "Design,Illustrator", "complete" }
+        { "4", "Logo Design", "Logo for new brand", "2025-12-05", "100", "Design,Illustrator", "completed" }
             };
 
             for (int i = 0; i < sampleData.GetLength(0); i++)
@@ -75,12 +75,12 @@ namespace FreelancePlatform.src
                     string status = sampleData[i, 6];
                     DataGridViewRow row = bidAgreementDataGrid.Rows[rowIndex];
 
-                    if (status == "posted" || status == "bidded")
+                    if (status == "bidded")
                     {
                         row.Cells["Action 1"].Value = "Accept";
                         row.Cells["Action 2"].Value = "Reject";
                     }
-                    else if (status == "confirmed" || status == "complete")
+                    else if (status == "posted" || status == "confirmed" || status == "completed")
                     {
                         row.Cells["Action 1"].Value = "Details";
                         row.Cells["Action 2"].Value = "Remove";
@@ -115,12 +115,12 @@ namespace FreelancePlatform.src
 
             if (buttonName == "Action 1") // First button column
             {
-                if (status == "posted" || status == "bidded")
+                if (status == "bidded")
                 {
                     // Accept button
                     MessageBox.Show($"Accepted bid for project ID: {projectId}");
                 }
-                else if (status == "confirmed" || status == "complete")
+                else if (status == "posted" || status == "confirmed" || status == "completed")
                 {
                     // Details button
                      MessageBox.Show($"Viewing details for project ID: {projectId}");
@@ -129,15 +129,23 @@ namespace FreelancePlatform.src
             }
             else if (buttonName == "Action 2") // Second button column
             {
-                if (status == "posted" || status == "bidded")
+                if (status == "bidded")
                 {
                     // Reject button
                      MessageBox.Show($"Rejected bid for project ID: {projectId}");
                 }
-                else if (status == "confirmed" || status == "complete")
+                else if (status == "posted" || status == "confirmed" || status == "completed")
                 {
-                    // Remove button (soft delete)
-                     MessageBox.Show($"Removed project ID: {projectId} from listings");
+                    if(status == "confirmed")
+                    {
+                        MessageBox.Show("You can\'t remove the ongoing project. You can remove when the project is Completed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        // Remove button (soft delete)
+                        MessageBox.Show($"Removed project ID: {projectId} from listings");
+                    }
+                   
                 }
             }
             
