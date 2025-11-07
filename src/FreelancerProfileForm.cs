@@ -34,7 +34,6 @@ namespace FreelancePlatform.src
                 dashboardButton.Visible = false;
                 bidProjectsButton.Visible = false;
                 browseProjectsButton.Visible = false;
-                backArrowLabel.Visible = true;
             }
         }
 
@@ -48,8 +47,17 @@ namespace FreelancePlatform.src
         private void backArrowLabel_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var freelancerListForm = new FreelancerListForm((int)this.clientId!);
-            freelancerListForm.Show();
+            if(this.fromFreelancerList)
+            {
+                var freelancerListForm = new FreelancerListForm((int)this.clientId!);
+                freelancerListForm.Show();
+            }
+            else /* from authentication form (logout) */
+            {
+                var authenticationForm = new AuthenticationForm();
+                authenticationForm.Show();
+            }
+        
         }
 
         private void bidProjectsButton_Click(object sender, EventArgs e)

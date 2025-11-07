@@ -51,5 +51,13 @@ namespace FreelancePlatform.src
             var bidAgreementForm = new BidAgreementForm(userId, true);
             bidAgreementForm.Show();
         }
+
+        private void backArrowLabel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            // logout
+            var authenticationForm = new AuthenticationForm();
+            authenticationForm.Show();
+        }
     }
 }

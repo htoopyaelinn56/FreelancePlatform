@@ -43,6 +43,7 @@
             freelancerProfileLabel = new Label();
             companyNameValue = new Label();
             companyNameLabel = new Label();
+            backArrowLabel = new Label();
             SuspendLayout();
             // 
             // postProjectButton
@@ -186,11 +187,23 @@
             companyNameLabel.TabIndex = 30;
             companyNameLabel.Text = "Company Name";
             // 
+            // backArrowLabel
+            // 
+            backArrowLabel.AutoSize = true;
+            backArrowLabel.Font = new Font("JetBrains Mono Medium", 16F);
+            backArrowLabel.Location = new Point(12, 9);
+            backArrowLabel.Name = "backArrowLabel";
+            backArrowLabel.Size = new Size(31, 36);
+            backArrowLabel.TabIndex = 39;
+            backArrowLabel.Text = "←";
+            backArrowLabel.Click += backArrowLabel_Click;
+            // 
             // ClientProfileForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(backArrowLabel);
             Controls.Add(companyNameValue);
             Controls.Add(companyNameLabel);
             Controls.Add(postProjectButton);
@@ -230,5 +243,6 @@
         private Label freelancerProfileLabel;
         private Label companyNameValue;
         private Label companyNameLabel;
+        private Label backArrowLabel;
     }
 }

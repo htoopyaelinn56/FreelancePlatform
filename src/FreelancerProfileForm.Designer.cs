@@ -200,7 +200,6 @@
             backArrowLabel.Size = new Size(31, 36);
             backArrowLabel.TabIndex = 35;
             backArrowLabel.Text = "←";
-            backArrowLabel.Visible = false;
             backArrowLabel.Click += backArrowLabel_Click;
             // 
             // emailValue
