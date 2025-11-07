@@ -1,7 +1,9 @@
 ﻿using FreelancePlatform.src;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -122,10 +124,70 @@ namespace FreelancePlatform
         private void registerButton_Click(object sender, EventArgs e)
         {
             var validationPass = CheckValidation(true);
-            if(validationPass)
+            if (validationPass)
             {
-                // todo: registeration logic
-                MessageBox.Show("Registeration successful. Please login in again to continue!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    registerIntoUserTable();
+                    MessageBox.Show("Registeration successful. Please login in again to continue!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Registeration failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void registerIntoUserTable()
+        {
+            string username = userNameTextBox.Text.Trim();
+            string password = passwordTextBox.Text.Trim();
+            string userType = GetUserType()!; // "freelancer" or "client", can null check because it is valided before inserting
+
+            try
+            {
+                using (var conn = DatabaseService.GetConnection())
+                {
+
+                    string countQuery = @"
+                        SELECT COUNT(*) FROM Users WHERE username = @username;";
+
+                    using (var countCmd = new MySqlCommand(countQuery, conn))
+                    {
+                        countCmd.Parameters.AddWithValue("@username", username);
+                        var count = Convert.ToInt32(countCmd.ExecuteScalar());
+                        if (count != 0)
+                        {
+                            throw new ApplicationException("Username already exists. Please choose another username.");
+                        }
+                        
+                        string insertQuery = @"
+                        INSERT INTO Users (username, password, type)
+                        VALUES (@username, @password, @type);";
+
+                        using (var cmd = new MySqlCommand(insertQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@username", username);
+                            cmd.Parameters.AddWithValue("@password", password);
+                            cmd.Parameters.AddWithValue("@type", userType);
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected == 0)
+                            {
+                                throw new ApplicationException("Something went wrong with inserting user into database. Please try again!");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
