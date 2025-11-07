@@ -214,5 +214,59 @@ namespace FreelancePlatform.src
             }
         }
 
+        public (string username, string email, string phone, string skills, string expertise, string portfolio, string pastwork) getFreelancerProfileData(int userId)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                string query = @"
+                    SELECT 
+                        u.username, 
+                        u.email, 
+                        u.phone,
+                        f.skills, 
+                        f.expertise, 
+                        f.portfolio, 
+                        f.pastwork
+                    FROM Users u
+                    JOIN Freelancers f ON u.id = f.user_id
+                    WHERE u.id = @userId;";
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string username = reader.GetString("username");
+                            string email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email");
+                            string phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone");
+                            string skills = reader.IsDBNull(reader.GetOrdinal("skills")) ? "" : reader.GetString("skills");
+                            string expertise = reader.IsDBNull(reader.GetOrdinal("expertise")) ? "" : reader.GetString("expertise");
+                            string portfolio = reader.IsDBNull(reader.GetOrdinal("portfolio")) ? "" : reader.GetString("portfolio");
+                            string pastwork = reader.IsDBNull(reader.GetOrdinal("pastwork")) ? "" : reader.GetString("pastwork");
+
+                            return (username, email, phone, skills, expertise, portfolio, pastwork);
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Freelancer profile not found.");
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while fetching freelancer profile: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(ex.Message);
+            }
+        }
+
     }
 }

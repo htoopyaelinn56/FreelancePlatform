@@ -18,6 +18,8 @@ namespace FreelancePlatform.src
         private int? clientId;
         private bool fromFreelancerList;
 
+        private Repository repository = new Repository();
+
         public FreelancerProfileForm(int userId, int? clientId = null, bool fromFreelancerList = false)
         {
             InitializeComponent();
@@ -35,6 +37,8 @@ namespace FreelancePlatform.src
                 bidProjectsButton.Visible = false;
                 browseProjectsButton.Visible = false;
             }
+
+            GetFreelancerProfileData();
         }
 
         private void editProfileButton_Click(object sender, EventArgs e)
@@ -79,6 +83,18 @@ namespace FreelancePlatform.src
             this.Hide();
             var dashboardForm = new DashboardForm(userId);
             dashboardForm.Show();
+        }
+
+        private void GetFreelancerProfileData()
+        {
+            var freelancerData = repository.getFreelancerProfileData(this.userId);
+            nameValue.Text = freelancerData.username;
+            emailValue.Text = freelancerData.email;
+            phoneValue.Text = freelancerData.phone;
+            skillsValue.Text = freelancerData.skills;
+            expertiseValue.Text = freelancerData.expertise;
+            portfolioValue.Text = freelancerData.portfolio;
+            pastWorkValue.Text = freelancerData.pastwork;
         }
     }
 }

@@ -34,11 +34,11 @@
             expertiseLabel = new Label();
             portfolioLabel = new Label();
             pastWorkLabel = new Label();
-            nameValue = new Label();
+            pastWorkValue = new Label();
             skillsValue = new Label();
             expertiseValue = new Label();
             portfolioValue = new Label();
-            pastWorkValue = new Label();
+            nameValue = new Label();
             editProfileButton = new Button();
             dashboardButton = new Button();
             bidProjectsButton = new Button();
@@ -106,14 +106,14 @@
             pastWorkLabel.TabIndex = 5;
             pastWorkLabel.Text = "Past Work";
             // 
-            // nameValue
+            // pastWorkValue
             // 
-            nameValue.AutoSize = true;
-            nameValue.Location = new Point(194, 256);
-            nameValue.Name = "nameValue";
-            nameValue.Size = new Size(160, 22);
-            nameValue.TabIndex = 10;
-            nameValue.Text = "Past Work Value";
+            pastWorkValue.AutoSize = true;
+            pastWorkValue.Location = new Point(194, 256);
+            pastWorkValue.Name = "pastWorkValue";
+            pastWorkValue.Size = new Size(160, 22);
+            pastWorkValue.TabIndex = 10;
+            pastWorkValue.Text = "Past Work Value";
             // 
             // skillsValue
             // 
@@ -142,14 +142,14 @@
             portfolioValue.TabIndex = 7;
             portfolioValue.Text = "Skills Value";
             // 
-            // pastWorkValue
+            // nameValue
             // 
-            pastWorkValue.AutoSize = true;
-            pastWorkValue.Location = new Point(191, 62);
-            pastWorkValue.Name = "pastWorkValue";
-            pastWorkValue.Size = new Size(110, 22);
-            pastWorkValue.TabIndex = 6;
-            pastWorkValue.Text = "Name Value";
+            nameValue.AutoSize = true;
+            nameValue.Location = new Point(191, 62);
+            nameValue.Name = "nameValue";
+            nameValue.Size = new Size(110, 22);
+            nameValue.TabIndex = 6;
+            nameValue.Text = "Name Value";
             // 
             // editProfileButton
             // 
@@ -252,11 +252,11 @@
             Controls.Add(bidProjectsButton);
             Controls.Add(dashboardButton);
             Controls.Add(editProfileButton);
-            Controls.Add(nameValue);
+            Controls.Add(pastWorkValue);
             Controls.Add(skillsValue);
             Controls.Add(expertiseValue);
             Controls.Add(portfolioValue);
-            Controls.Add(pastWorkValue);
+            Controls.Add(nameValue);
             Controls.Add(pastWorkLabel);
             Controls.Add(portfolioLabel);
             Controls.Add(expertiseLabel);
@@ -278,11 +278,11 @@
         private Label expertiseLabel;
         private Label portfolioLabel;
         private Label pastWorkLabel;
-        private Label nameValue;
+        private Label pastWorkValue;
         private Label skillsValue;
         private Label expertiseValue;
         private Label portfolioValue;
-        private Label pastWorkValue;
+        private Label nameValue;
         private Button editProfileButton;
         private Button dashboardButton;
         private Button bidProjectsButton;
