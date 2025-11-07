@@ -48,5 +48,12 @@ namespace FreelancePlatform.src
                 bidAgreementForm.Show();
             }
         }
+
+        private void reviewButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var reviewForm = new ProjectReviewForm(this.userId, this.projectId);
+            reviewForm.Show();
+        }
     }
 }

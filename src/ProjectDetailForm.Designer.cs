@@ -249,6 +249,7 @@
             reviewButton.TabIndex = 62;
             reviewButton.Text = "Review";
             reviewButton.UseVisualStyleBackColor = true;
+            reviewButton.Click += reviewButton_Click;
             // 
             // bidButton
             // 
