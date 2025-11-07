@@ -19,6 +19,9 @@
     <Compile Update="src\ClientProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="src\DashboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="src\FreelancerListForm.cs">
       <SubType>Form</SubType>
     </Compile>

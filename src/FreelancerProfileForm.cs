@@ -65,5 +65,12 @@ namespace FreelancePlatform.src
             var browseProjectsForm = new BrowseProjectsForm(userId);
             browseProjectsForm.Show();
         }
+
+        private void dashboardButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var dashboardForm = new DashboardForm(userId);
+            dashboardForm.Show();
+        }
     }
 }

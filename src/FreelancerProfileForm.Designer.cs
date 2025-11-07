@@ -165,6 +165,7 @@
             dashboardButton.TabIndex = 12;
             dashboardButton.Text = "Dashboard";
             dashboardButton.UseVisualStyleBackColor = true;
+            dashboardButton.Click += dashboardButton_Click;
             // 
             // biddedProjectsButton
             // 
