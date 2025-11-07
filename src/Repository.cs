@@ -268,5 +268,85 @@ namespace FreelancePlatform.src
             }
         }
 
+        public void editFreelancerProfile(int userId, string username, string email, string phone, string skills, string expertise, string portfolio, string pastwork)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                string countQuery = "SELECT COUNT(*) FROM Users WHERE username = @username AND id != @userId;";
+                using (var countCmd = new MySqlCommand(countQuery, conn))
+                {
+                    countCmd.Parameters.AddWithValue("@username", username);
+                    countCmd.Parameters.AddWithValue("@userId", userId);
+                    var count = Convert.ToInt32(countCmd.ExecuteScalar());
+                    if (count != 0)
+                    {
+                        throw new ApplicationException("Username already exists. Please choose another username.");
+                    }
+                }
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        string updateUserQuery = @"
+                            UPDATE Users
+                            SET username = @Username,
+                                email = @Email,
+                                phone = @Phone
+                            WHERE id = @UserId;";
+
+                        using (var cmdUser = new MySqlCommand(updateUserQuery, conn, transaction))
+                        {
+                            cmdUser.Parameters.AddWithValue("@Username", username);
+                            cmdUser.Parameters.AddWithValue("@Email", email);
+                            cmdUser.Parameters.AddWithValue("@Phone", phone);
+                            cmdUser.Parameters.AddWithValue("@UserId", userId);
+
+                            int affected = cmdUser.ExecuteNonQuery();
+                            if (affected == 0)
+                                throw new ApplicationException("User not found or no changes applied.");
+                        }
+                        
+                        string updateFreelancerQuery = @"
+                            UPDATE Freelancers
+                            SET skills = @Skills,
+                                expertise = @Expertise,
+                                portfolio = @Portfolio,
+                                pastwork = @Pastwork
+                            WHERE user_id = @UserId;";
+
+                        using (var cmdFreelancer = new MySqlCommand(updateFreelancerQuery, conn, transaction))
+                        {
+                            cmdFreelancer.Parameters.AddWithValue("@Skills", skills);
+                            cmdFreelancer.Parameters.AddWithValue("@Expertise", expertise);
+                            cmdFreelancer.Parameters.AddWithValue("@Portfolio", portfolio);
+                            cmdFreelancer.Parameters.AddWithValue("@Pastwork", pastwork);
+                            cmdFreelancer.Parameters.AddWithValue("@UserId", userId);
+
+                            int affected = cmdFreelancer.ExecuteNonQuery();
+                            if (affected == 0)
+                                throw new ApplicationException("Freelancer profile not found or no changes applied.");
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while editing freelancer profile: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(ex.Message);
+            }
+        }
     }
 }
