@@ -16,13 +16,15 @@ namespace FreelancePlatform.src
         private bool isClient; // else isFreelancer
         private int projectId;
         private bool fromBidAgreement;
-        public ProjectDetailForm(int userId, bool isClient, int projectId, bool fromBidAgreement)
+        private bool fromBrowseProjects;
+        public ProjectDetailForm(int userId, bool isClient, int projectId, bool fromBidAgreement = false, bool fromBrowseProjects = false)
         {
             InitializeComponent();
             this.userId = userId;
             this.isClient = isClient;
             this.projectId = projectId;
             this.fromBidAgreement = fromBidAgreement;
+            this.fromBrowseProjects = fromBrowseProjects;
         }
 
         private void ProjectDetailForm_Load(object sender, EventArgs e)
@@ -34,7 +36,9 @@ namespace FreelancePlatform.src
                 this.bidAmountPerHourLabel.Visible = true;
                 this.reviewButton.Visible = false;
                 this.bidButton.Visible = true;
-                this.completeButton.Visible = true;
+
+                // show when coming from dashboard
+                // this.completeButton.Visible = true;
             }
         }
 
@@ -47,6 +51,11 @@ namespace FreelancePlatform.src
                 var bidAgreementForm = new BidAgreementForm(this.userId, this.isClient);
                 bidAgreementForm.Show();
             }
+            else if (this.fromBrowseProjects)
+            {
+                var browseProjetsForm = new BrowseProjectsForm(this.userId);
+                browseProjetsForm.Show();
+            }
         }
 
         private void reviewButton_Click(object sender, EventArgs e)
@@ -54,6 +63,14 @@ namespace FreelancePlatform.src
             this.Hide();
             var reviewForm = new ProjectReviewForm(this.userId, this.projectId);
             reviewForm.Show();
+        }
+
+        private void bidButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MessageBox.Show("Bidded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var browseProjetsForm = new BrowseProjectsForm(this.userId);
+            browseProjetsForm.Show();
         }
     }
 }

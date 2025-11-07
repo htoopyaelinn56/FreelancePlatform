@@ -50,8 +50,12 @@ namespace FreelancePlatform.src
             // If Action button clicked
             if (e.RowIndex >= 0 && e.ColumnIndex == projectsGrid.Columns["Action"].Index)
             {
-                string projectName = projectsGrid.Rows[e.RowIndex].Cells["Name"].Value.ToString() ?? "";
-                MessageBox.Show($"Viewing project: {projectName}", "View Project", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string projectId = projectsGrid.Rows[e.RowIndex].Cells["ID"].Value.ToString() ?? "";
+                int projectIdInInteger =  int.Parse(projectId);
+                this.Hide();
+                var projectDetail = new ProjectDetailForm(userId: this.userId,isClient: false, projectId: projectIdInInteger, fromBrowseProjects : true);
+                projectDetail.Show();
+
             }
         }
 

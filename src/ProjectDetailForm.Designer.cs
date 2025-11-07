@@ -260,6 +260,7 @@
             bidButton.Text = "Bid";
             bidButton.UseVisualStyleBackColor = true;
             bidButton.Visible = false;
+            bidButton.Click += bidButton_Click;
             // 
             // completeButton
             // 
