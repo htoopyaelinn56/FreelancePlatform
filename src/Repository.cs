@@ -135,5 +135,84 @@ namespace FreelancePlatform.src
                 }
             }
         }
+
+        public void editClientProfile(int userId, string username, string email, string phone, string address, string companyName)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                string countQuery = "SELECT COUNT(*) FROM Users WHERE username = @username AND id != @userId;";
+                using (var countCmd = new MySqlCommand(countQuery, conn))
+                {
+                    countCmd.Parameters.AddWithValue("@username", username);
+                    countCmd.Parameters.AddWithValue("@userId", userId);
+                    var count = Convert.ToInt32(countCmd.ExecuteScalar());
+                    if (count != 0)
+                    {
+                        throw new ApplicationException("Username already exists. Please choose another username.");
+                    }
+                }
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        string updateUserQuery = @"
+                            UPDATE Users
+                            SET username = @Username,
+                                email = @Email,
+                                phone = @Phone
+                            WHERE id = @UserId;";
+
+                        using (var cmdUser = new MySqlCommand(updateUserQuery, conn, transaction))
+                        {
+                            cmdUser.Parameters.AddWithValue("@Username", username);
+                            cmdUser.Parameters.AddWithValue("@Email", email);
+                            cmdUser.Parameters.AddWithValue("@Phone", phone);
+                            cmdUser.Parameters.AddWithValue("@UserId", userId);
+
+                            int affected = cmdUser.ExecuteNonQuery();
+                            if (affected == 0)
+                                throw new ApplicationException("User not found or no changes applied.");
+                        }
+
+                        string updateClientQuery = @"
+                            UPDATE Clients
+                            SET address = @Address,
+                                company_name = @CompanyName
+                            WHERE user_id = @UserId;";
+
+                        using (var cmdClient = new MySqlCommand(updateClientQuery, conn, transaction))
+                        {
+                            cmdClient.Parameters.AddWithValue("@Address", address);
+                            cmdClient.Parameters.AddWithValue("@CompanyName", companyName);
+                            cmdClient.Parameters.AddWithValue("@UserId", userId);
+
+                            int affected = cmdClient.ExecuteNonQuery();
+                            if (affected == 0)
+                                throw new ApplicationException("Client profile not found or no changes applied.");
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while editing client profile: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(ex.Message);
+            }
+        }
+
     }
 }
