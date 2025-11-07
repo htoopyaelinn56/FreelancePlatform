@@ -158,9 +158,7 @@ namespace FreelancePlatform
             {
                 var conn = DatabaseService.GetConnection();
 
-                string countQuery = @"
-                     SELECT COUNT(*) FROM Users WHERE username = @username;";
-
+                string countQuery = "SELECT COUNT(*) FROM Users WHERE username = @username;";
                 using (var countCmd = new MySqlCommand(countQuery, conn))
                 {
                     countCmd.Parameters.AddWithValue("@username", username);
@@ -169,26 +167,47 @@ namespace FreelancePlatform
                     {
                         throw new ApplicationException("Username already exists. Please choose another username.");
                     }
-
-                    string insertQuery = @"
-                        INSERT INTO Users (username, password, type)
-                        VALUES (@username, @password, @type);";
-
-                    using (var cmd = new MySqlCommand(insertQuery, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@username", username);
-                        cmd.Parameters.AddWithValue("@password", password);
-                        cmd.Parameters.AddWithValue("@type", userType);
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected == 0)
-                        {
-                            throw new ApplicationException("Something went wrong with inserting user into database. Please try again!");
-                        }
-                    }
                 }
 
+                string insertUserQuery = @"
+                    INSERT INTO Users (username, password, type)
+                    VALUES (@username, @password, @type);";
+
+                long userId; 
+                using (var cmd = new MySqlCommand(insertUserQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@type", userType);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                        throw new ApplicationException("Failed to insert user. Please try again.");
+
+                    userId = cmd.LastInsertedId;
+                }
+                if (userType == "client")
+                {
+                    string insertClientQuery = @"
+                        INSERT INTO Clients (user_id, address, company_name)
+                        VALUES (@userId, '', '');"; 
+                    using (var cmd = new MySqlCommand(insertClientQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                else if (userType == "freelancer")
+                {
+                    string insertFreelancerQuery = @"
+                        INSERT INTO Freelancers (user_id, skills, expertise, portfolio, pastwork)
+                        VALUES (@userId, '', '', '', '');";
+                    using (var cmd = new MySqlCommand(insertFreelancerQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
             catch (MySqlException)
             {
