@@ -113,7 +113,7 @@ namespace FreelancePlatform.src
             string buttonName = bidAgreementDataGrid.Columns[e.ColumnIndex].Name;
             string status = rows[e.RowIndex].Cells["Status"].Value.ToString()!.ToLower();
 
-            if (buttonName == "Action 1") // First button column
+            if (buttonName == "Action 1") 
             {
                 if (status == "bidded")
                 {
@@ -123,32 +123,28 @@ namespace FreelancePlatform.src
                 else if (status == "posted" || status == "confirmed" || status == "completed")
                 {
                     // Details button
-                     MessageBox.Show($"Viewing details for project ID: {projectId}");
+                    MessageBox.Show($"Viewing details for project ID: {projectId}");
 
                 }
             }
-            else if (buttonName == "Action 2") // Second button column
+            else if (buttonName == "Action 2")
             {
                 if (status == "bidded")
                 {
                     // Reject button
-                     MessageBox.Show($"Rejected bid for project ID: {projectId}");
+                    MessageBox.Show($"Rejected bid for project ID: {projectId}");
                 }
-                else if (status == "posted" || status == "confirmed" || status == "completed")
+                else if (status == "confirmed")
                 {
-                    if(status == "confirmed")
-                    {
-                        MessageBox.Show("You can\'t remove the ongoing project. You can remove when the project is Completed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        // Remove button (soft delete)
-                        MessageBox.Show($"Removed project ID: {projectId} from listings");
-                    }
-                   
+                    MessageBox.Show("You can\'t remove the ongoing project. You can remove when the project is Completed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (status == "posted" || status == "completed")
+                {
+                    // Remove button (soft delete)
+                    MessageBox.Show($"Removed project ID: {projectId} from listings");
                 }
             }
-            
+
 
             BidAgreementForm_Load(null, null);
         }
