@@ -184,6 +184,7 @@
             browseProjectsButton.TabIndex = 14;
             browseProjectsButton.Text = "Browse Projects";
             browseProjectsButton.UseVisualStyleBackColor = true;
+            browseProjectsButton.Click += browseProjectsButton_Click;
             // 
             // backArrowLabel
             // 
