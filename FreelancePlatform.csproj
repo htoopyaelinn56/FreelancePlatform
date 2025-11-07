@@ -17,4 +17,8 @@
     <EmbeddedResource Include="src\JetBrainsMono-Medium.ttf" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.5.0" />
+  </ItemGroup>
+
 </Project>
