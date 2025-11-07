@@ -39,25 +39,35 @@ namespace FreelancePlatform
             var validationPass = CheckValidation(false);
             if (validationPass)
             {
-                var userType = GetUserType();
-
-                switch (userType)
+                try
                 {
-                    case "client":
-                        this.Hide();
-                        var clientProfileForm = new ClientProfileForm(1);
-                        clientProfileForm.Show();
-                        break;
+                    var result = loginToSystem();
+                    var userType = result.userType;
+                    var userId = result.userId;
 
-                    case "freelancer":
-                        this.Hide();
-                        var freelancerProfileForm = new FreelancerProfileForm(1);
-                        freelancerProfileForm.Show();
-                        break;
+                    switch (userType)
+                    {
+                        case "client":
+                            this.Hide();
+                            var clientProfileForm = new ClientProfileForm(userId);
+                            clientProfileForm.Show();
+                            break;
 
-                    default:
-                        MessageBox.Show("Something went wrong with user type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
+                        case "freelancer":
+                            this.Hide();
+                            var freelancerProfileForm = new FreelancerProfileForm(userId);
+                            freelancerProfileForm.Show();
+                            break;
+
+                        default:
+                            MessageBox.Show("Something went wrong with user type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Login failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
         }
@@ -108,7 +118,7 @@ namespace FreelancePlatform
                 return false;
             }
 
-            else if (userType == null)
+            else if (userType == null && isRegister)
             {
                 MessageBox.Show("Please select User Type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -146,40 +156,39 @@ namespace FreelancePlatform
 
             try
             {
-                using (var conn = DatabaseService.GetConnection())
+                var conn = DatabaseService.GetConnection();
+
+                string countQuery = @"
+                     SELECT COUNT(*) FROM Users WHERE username = @username;";
+
+                using (var countCmd = new MySqlCommand(countQuery, conn))
                 {
-
-                    string countQuery = @"
-                        SELECT COUNT(*) FROM Users WHERE username = @username;";
-
-                    using (var countCmd = new MySqlCommand(countQuery, conn))
+                    countCmd.Parameters.AddWithValue("@username", username);
+                    var count = Convert.ToInt32(countCmd.ExecuteScalar());
+                    if (count != 0)
                     {
-                        countCmd.Parameters.AddWithValue("@username", username);
-                        var count = Convert.ToInt32(countCmd.ExecuteScalar());
-                        if (count != 0)
-                        {
-                            throw new ApplicationException("Username already exists. Please choose another username.");
-                        }
-                        
-                        string insertQuery = @"
+                        throw new ApplicationException("Username already exists. Please choose another username.");
+                    }
+
+                    string insertQuery = @"
                         INSERT INTO Users (username, password, type)
                         VALUES (@username, @password, @type);";
 
-                        using (var cmd = new MySqlCommand(insertQuery, conn))
+                    using (var cmd = new MySqlCommand(insertQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@password", password);
+                        cmd.Parameters.AddWithValue("@type", userType);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected == 0)
                         {
-                            cmd.Parameters.AddWithValue("@username", username);
-                            cmd.Parameters.AddWithValue("@password", password);
-                            cmd.Parameters.AddWithValue("@type", userType);
-
-                            int rowsAffected = cmd.ExecuteNonQuery();
-
-                            if (rowsAffected == 0)
-                            {
-                                throw new ApplicationException("Something went wrong with inserting user into database. Please try again!");
-                            }
+                            throw new ApplicationException("Something went wrong with inserting user into database. Please try again!");
                         }
                     }
                 }
+
             }
             catch (MySqlException)
             {
@@ -189,6 +198,36 @@ namespace FreelancePlatform
             {
                 throw;
             }
+        }
+
+        private (int userId, string userType) loginToSystem()
+        {
+            var userName = userNameTextBox.Text.Trim();
+            var password = passwordTextBox.Text.Trim();
+
+            var conn = DatabaseService.GetConnection();
+            string query = @"
+                    SELECT id, type FROM Users 
+                    WHERE username = @username AND password = @password;";
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@username", userName);
+                cmd.Parameters.AddWithValue("@password", password);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userId = reader.GetInt32("id");
+                        string userType = reader.GetString("type");
+                        return (userId, userType);
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Invalid Credentials. Please check your username and password.");
+                    }
+                }
+            }
+
         }
     }
 }

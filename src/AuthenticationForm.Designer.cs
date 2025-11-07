@@ -39,6 +39,7 @@
             userTypeLabel = new Label();
             loginButton = new Button();
             registerButton = new Button();
+            infoLabel = new Label();
             SuspendLayout();
             // 
             // formTitle
@@ -146,11 +147,22 @@
             registerButton.UseVisualStyleBackColor = true;
             registerButton.Click += registerButton_Click;
             // 
+            // infoLabel
+            // 
+            infoLabel.AutoSize = true;
+            infoLabel.ForeColor = Color.Red;
+            infoLabel.Location = new Point(12, 200);
+            infoLabel.Name = "infoLabel";
+            infoLabel.Size = new Size(470, 22);
+            infoLabel.TabIndex = 14;
+            infoLabel.Text = "(User type is only requirerd for registration)";
+            // 
             // AuthenticationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(infoLabel);
             Controls.Add(registerButton);
             Controls.Add(loginButton);
             Controls.Add(userTypeLabel);
@@ -182,5 +194,6 @@
         private Label userTypeLabel;
         private Button loginButton;
         private Button registerButton;
+        private Label infoLabel;
     }
 }
