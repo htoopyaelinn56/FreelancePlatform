@@ -81,7 +81,7 @@ namespace FreelancePlatform.src
         private void bidButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            MessageBox.Show("Bidded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("bid successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             var browseProjetsForm = new BrowseProjectsForm(this.userId);
             browseProjetsForm.Show();
         }

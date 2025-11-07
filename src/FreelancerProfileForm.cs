@@ -32,7 +32,7 @@ namespace FreelancePlatform.src
             {
                 editProfileButton.Visible = false;
                 dashboardButton.Visible = false;
-                biddedProjectsButton.Visible = false;
+                bidProjectsButton.Visible = false;
                 browseProjectsButton.Visible = false;
                 backArrowLabel.Visible = true;
             }
@@ -52,7 +52,7 @@ namespace FreelancePlatform.src
             freelancerListForm.Show();
         }
 
-        private void biddedProjectsButton_Click(object sender, EventArgs e)
+        private void bidProjectsButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             var bidAgreementForm = new BidAgreementForm(userId, false);

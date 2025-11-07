@@ -56,7 +56,7 @@ namespace FreelancePlatform.src
             string[,] sampleData = new string[,]
             {
         { "1", "Website Design", "Design a website for shop", "2025-12-10", "500", "UI/UX", "posted" },
-        { "2", "Mobile App", "Flutter app for e-commerce", "2025-12-20", "1000", "Flutter,Dart", "bidded" },
+        { "2", "Mobile App", "Flutter app for e-commerce", "2025-12-20", "1000", "Flutter,Dart", "bid" },
         { "3", "Data Analysis", "Analyze sales data", "2025-11-30", "300", "Python,ML", "confirmed" },
         { "4", "Logo Design", "Logo for new brand", "2025-12-05", "100", "Design,Illustrator", "completed" }
             };
@@ -75,7 +75,7 @@ namespace FreelancePlatform.src
                     string status = sampleData[i, 6];
                     DataGridViewRow row = bidAgreementDataGrid.Rows[rowIndex];
 
-                    if (status == "bidded")
+                    if (status == "bid")
                     {
                         row.Cells["Action 1"].Value = "Accept";
                         row.Cells["Action 2"].Value = "Reject";
@@ -115,7 +115,7 @@ namespace FreelancePlatform.src
 
             if (buttonName == "Action 1") 
             {
-                if (status == "bidded")
+                if (status == "bid")
                 {
                     // Accept button
                     MessageBox.Show($"Accepted bid for project ID: {projectId}");
@@ -130,7 +130,7 @@ namespace FreelancePlatform.src
             }
             else if (buttonName == "Action 2")
             {
-                if (status == "bidded")
+                if (status == "bid")
                 {
                     // Reject button
                     MessageBox.Show($"Rejected bid for project ID: {projectId}");

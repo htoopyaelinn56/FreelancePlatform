@@ -41,7 +41,7 @@
             pastWorkValue = new Label();
             editProfileButton = new Button();
             dashboardButton = new Button();
-            biddedProjectsButton = new Button();
+            bidProjectsButton = new Button();
             browseProjectsButton = new Button();
             backArrowLabel = new Label();
             SuspendLayout();
@@ -167,15 +167,15 @@
             dashboardButton.UseVisualStyleBackColor = true;
             dashboardButton.Click += dashboardButton_Click;
             // 
-            // biddedProjectsButton
+            // bidProjectsButton
             // 
-            biddedProjectsButton.Location = new Point(304, 256);
-            biddedProjectsButton.Name = "biddedProjectsButton";
-            biddedProjectsButton.Size = new Size(187, 29);
-            biddedProjectsButton.TabIndex = 13;
-            biddedProjectsButton.Text = "Bidded Projects";
-            biddedProjectsButton.UseVisualStyleBackColor = true;
-            biddedProjectsButton.Click += biddedProjectsButton_Click;
+            bidProjectsButton.Location = new Point(304, 256);
+            bidProjectsButton.Name = "bidProjectsButton";
+            bidProjectsButton.Size = new Size(187, 29);
+            bidProjectsButton.TabIndex = 13;
+            bidProjectsButton.Text = "Bid Projects";
+            bidProjectsButton.UseVisualStyleBackColor = true;
+            bidProjectsButton.Click += bidProjectsButton_Click;
             // 
             // browseProjectsButton
             // 
@@ -206,7 +206,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(backArrowLabel);
             Controls.Add(browseProjectsButton);
-            Controls.Add(biddedProjectsButton);
+            Controls.Add(bidProjectsButton);
             Controls.Add(dashboardButton);
             Controls.Add(editProfileButton);
             Controls.Add(nameValue);
@@ -242,7 +242,7 @@
         private Label pastWorkValue;
         private Button editProfileButton;
         private Button dashboardButton;
-        private Button biddedProjectsButton;
+        private Button bidProjectsButton;
         private Button browseProjectsButton;
         private Label backArrowLabel;
     }

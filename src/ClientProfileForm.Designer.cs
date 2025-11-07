@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             postProjectButton = new Button();
-            biddedProjectsButton = new Button();
+            bidProjectsButton = new Button();
             viewFreelancerButton = new Button();
             editProfileButton = new Button();
             addressValue = new Label();
@@ -53,15 +53,15 @@
             postProjectButton.UseVisualStyleBackColor = true;
             postProjectButton.Click += postProjectButton_Click;
             // 
-            // biddedProjectsButton
+            // bidProjectsButton
             // 
-            biddedProjectsButton.Location = new Point(372, 256);
-            biddedProjectsButton.Name = "biddedProjectsButton";
-            biddedProjectsButton.Size = new Size(187, 29);
-            biddedProjectsButton.TabIndex = 28;
-            biddedProjectsButton.Text = "Bidded Projects";
-            biddedProjectsButton.UseVisualStyleBackColor = true;
-            biddedProjectsButton.Click += biddedProjectsButton_Click;
+            bidProjectsButton.Location = new Point(372, 256);
+            bidProjectsButton.Name = "bidProjectsButton";
+            bidProjectsButton.Size = new Size(187, 29);
+            bidProjectsButton.TabIndex = 28;
+            bidProjectsButton.Text = "bid Projects";
+            bidProjectsButton.UseVisualStyleBackColor = true;
+            bidProjectsButton.Click += bidProjectsButton_Click;
             // 
             // viewFreelancerButton
             // 
@@ -172,7 +172,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(postProjectButton);
-            Controls.Add(biddedProjectsButton);
+            Controls.Add(bidProjectsButton);
             Controls.Add(viewFreelancerButton);
             Controls.Add(editProfileButton);
             Controls.Add(addressValue);
@@ -194,7 +194,7 @@
         #endregion
 
         private Button postProjectButton;
-        private Button biddedProjectsButton;
+        private Button bidProjectsButton;
         private Button viewFreelancerButton;
         private Button editProfileButton;
         private Label addressValue;
