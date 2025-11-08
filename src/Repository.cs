@@ -874,5 +874,64 @@ namespace FreelancePlatform.src
             }
         }
 
+        public List<(int id, string name, string? phone, string? email, string? skills, string? expertise, string? portfolio, string? pastwork)> getFreelancers(string? query)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                string sql = @"
+            SELECT 
+                u.id,
+                u.username AS name,
+                u.email,
+                u.phone,
+                f.skills,
+                f.expertise,
+                f.portfolio,
+                f.pastwork
+            FROM Freelancers f
+            INNER JOIN Users u ON u.id = f.user_id
+            WHERE (@Query IS NULL OR @Query = '' 
+                   OR u.username LIKE CONCAT('%', @Query, '%'))
+            ORDER BY u.username ASC;";
+
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Query", query ?? string.Empty);
+
+                    var freelancers = new List<(int, string, string?, string?, string?, string?, string?, string?)>();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = reader.GetInt32("id");
+                            string name = reader.GetString("name");
+                            string? email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString("email");
+                            string? phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? null : reader.GetString("phone");
+                            string? skills = reader.IsDBNull(reader.GetOrdinal("skills")) ? null : reader.GetString("skills");
+                            string? expertise = reader.IsDBNull(reader.GetOrdinal("expertise")) ? null : reader.GetString("expertise");
+                            string? portfolio = reader.IsDBNull(reader.GetOrdinal("portfolio")) ? null : reader.GetString("portfolio");
+                            string? pastwork = reader.IsDBNull(reader.GetOrdinal("pastwork")) ? null : reader.GetString("pastwork");
+
+                            freelancers.Add((id, name, phone, email, skills, expertise, portfolio, pastwork));
+                        }
+                    }
+
+                    return freelancers;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while fetching freelancers: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
     }
 }

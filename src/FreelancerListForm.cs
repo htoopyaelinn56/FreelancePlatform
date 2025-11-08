@@ -13,6 +13,7 @@ namespace FreelancePlatform.src
     public partial class FreelancerListForm : BaseForm
     {
         private int userId;
+        private Repository repository = new Repository();
 
         public FreelancerListForm(int userId)
         {
@@ -22,14 +23,16 @@ namespace FreelancePlatform.src
 
         private void FreelancerListForm_Load(object sender, EventArgs e)
         {
-            freelancerDataGrid.ColumnCount = 6;
+            freelancerDataGrid.ColumnCount = 8;
             freelancerDataGrid.Columns[0].Name = "ID";
             freelancerDataGrid.Columns[0].FillWeight = 30;
             freelancerDataGrid.Columns[1].Name = "Name";
-            freelancerDataGrid.Columns[2].Name = "Skills";
-            freelancerDataGrid.Columns[3].Name = "Expertise";
-            freelancerDataGrid.Columns[4].Name = "Portfolio";
-            freelancerDataGrid.Columns[5].Name = "Past Work";
+            freelancerDataGrid.Columns[2].Name = "Phone";
+            freelancerDataGrid.Columns[3].Name = "Email";
+            freelancerDataGrid.Columns[4].Name = "Skills";
+            freelancerDataGrid.Columns[5].Name = "Expertise";
+            freelancerDataGrid.Columns[6].Name = "Portfolio";
+            freelancerDataGrid.Columns[7].Name = "Past Work";
 
             freelancerDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             freelancerDataGrid.RowTemplate.Height = 50;
@@ -38,15 +41,27 @@ namespace FreelancePlatform.src
             freelancerDataGrid.RowHeadersVisible = false;
             freelancerDataGrid.AllowUserToAddRows = false;
 
-            AddSampleData();
+            setData();
         }
 
-        private void AddSampleData()
+        private void setData()
         {
-            freelancerDataGrid.Rows.Add("1", "Alice Smith", "Flutter, Dart", "Mobile App Dev", "github.com/alice/flutterapp", "Food Delivery App");
-            freelancerDataGrid.Rows.Add("2", "John Doe", "React, Node.js", "Fullstack Dev", "johnportfolio.com", "E-Commerce Platform");
-            freelancerDataGrid.Rows.Add("3", "Emma Lee", "UI/UX, Figma", "Design", "behance.net/emma", "Dashboard Design");
-            freelancerDataGrid.Rows.Add("4", "Michael Chan", "Python, ML", "Data Science", "mikechan.dev", "Prediction Model Project");
+            var freelancers = repository.getFreelancers(searchTextField.Text);
+            freelancerDataGrid.Rows.Clear();
+            foreach (var freelancer in freelancers)
+            {
+                freelancerDataGrid.Rows.Add(new string[]
+                {
+                    freelancer.id.ToString(),
+                    freelancer.name,
+                    freelancer.phone ?? "",
+                    freelancer.email ?? "",
+                    freelancer.skills ?? "",
+                    freelancer.expertise ?? "",
+                    freelancer.portfolio ?? "",
+                    freelancer.pastwork ?? ""
+                });
+            }
         }
 
         private void backArrowLabel_Click(object sender, EventArgs e)
@@ -67,6 +82,11 @@ namespace FreelancePlatform.src
                 var freelancerProfileForm = new FreelancerProfileForm(id, this.userId, true);
                 freelancerProfileForm.Show();
             }
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            FreelancerListForm_Load(sender, e);
         }
     }
 }

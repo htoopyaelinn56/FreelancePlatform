@@ -73,6 +73,7 @@
             searchButton.TabIndex = 40;
             searchButton.Text = "Search";
             searchButton.UseVisualStyleBackColor = true;
+            searchButton.Click += searchButton_Click;
             // 
             // freelancerDataGrid
             // 
@@ -80,7 +81,7 @@
             freelancerDataGrid.Location = new Point(12, 65);
             freelancerDataGrid.Name = "freelancerDataGrid";
             freelancerDataGrid.RowHeadersWidth = 51;
-            freelancerDataGrid.Size = new Size(776, 373);
+            freelancerDataGrid.Size = new Size(990, 542);
             freelancerDataGrid.TabIndex = 41;
             freelancerDataGrid.CellClick += freelancerDataGrid_CellClick;
             // 
@@ -88,7 +89,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1014, 619);
             Controls.Add(freelancerDataGrid);
             Controls.Add(searchButton);
             Controls.Add(searchTextField);
