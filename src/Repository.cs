@@ -128,7 +128,8 @@ namespace FreelancePlatform.src
                         string address = reader.IsDBNull(reader.GetOrdinal("address")) ? "" : reader.GetString("address");
                         string companyName = reader.IsDBNull(reader.GetOrdinal("company_name")) ? "" : reader.GetString("company_name");
                         return (username, email, phone, address, companyName);
-                    } else
+                    }
+                    else
                     {
                         throw new ApplicationException("Client profile not found.");
                     }
@@ -308,7 +309,7 @@ namespace FreelancePlatform.src
                             if (affected == 0)
                                 throw new ApplicationException("User not found or no changes applied.");
                         }
-                        
+
                         string updateFreelancerQuery = @"
                             UPDATE Freelancers
                             SET skills = @Skills,
@@ -346,6 +347,52 @@ namespace FreelancePlatform.src
             catch (Exception ex)
             {
                 throw new ApplicationException(ex.Message);
+            }
+        }
+
+        public void postProject(int clientId, string? name, string? description, decimal? budget, DateTime? deadline, string? skills)
+        {
+            try
+            {
+                // Basic validation
+                if (string.IsNullOrWhiteSpace(name))
+                    throw new ApplicationException("Name cannot be empty!");
+                if (string.IsNullOrWhiteSpace(description))
+                    throw new ApplicationException("Description cannot be empty!");
+                if (budget == null || budget <= 0)
+                    throw new ApplicationException("Budget must be greater than 0!");
+                if (deadline == null)
+                    throw new ApplicationException("Deadline cannot be empty!");
+                if (string.IsNullOrWhiteSpace(skills))
+                    throw new ApplicationException("Skills cannot be empty!");
+
+                var conn = DatabaseService.GetConnection();
+
+                string insertQuery = @"
+                        INSERT INTO Projects (client_id, name, description, budget, deadline, skills, status)
+                        VALUES (@ClientId, @Name, @Description, @Budget, @Deadline, @Skills, 'posted');";
+
+                using (var cmd = new MySqlCommand(insertQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ClientId", clientId);
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@Description", description);
+                    cmd.Parameters.AddWithValue("@Budget", budget);
+                    cmd.Parameters.AddWithValue("@Deadline", deadline);
+                    cmd.Parameters.AddWithValue("@Skills", skills);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                        throw new ApplicationException("Failed to post project. Please try again.");
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while posting project: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }
