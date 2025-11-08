@@ -81,7 +81,7 @@ namespace FreelancePlatform.src
         private void dashboardButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var dashboardForm = new DashboardForm(userId);
+            var dashboardForm = new DashboardForm(userId, false);
             dashboardForm.Show();
         }
 

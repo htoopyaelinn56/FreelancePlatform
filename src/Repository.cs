@@ -390,7 +390,7 @@ namespace FreelancePlatform.src
             {
                 throw new ApplicationException("Database error while posting project: " + ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -509,7 +509,6 @@ namespace FreelancePlatform.src
                 string? freelancerName = null, reviewComment = null;
                 decimal budget;
                 DateTime deadline;
-                int projId, reviewRatingValue;
                 decimal? bidAmount = null;
                 int? reviewRating = null;
 
@@ -532,7 +531,6 @@ namespace FreelancePlatform.src
                         deadline = reader.GetDateTime("deadline");
                         skills = reader.GetString("skills");
                         status = reader.GetString("status");
-                        projId = reader.GetInt32("projectId");
                     }
                 }
 
@@ -559,7 +557,7 @@ namespace FreelancePlatform.src
                     }
                 }
 
-                return (clientName, freelancerName, name, description, budget, deadline, skills, status, projId, bidAmount, reviewRating, reviewComment);
+                return (clientName, freelancerName, name, description, budget, deadline, skills, status, projectId, bidAmount, reviewRating, reviewComment);
             }
             catch (MySqlException ex)
             {

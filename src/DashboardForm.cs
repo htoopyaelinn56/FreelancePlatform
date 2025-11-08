@@ -13,10 +13,12 @@ namespace FreelancePlatform.src
     public partial class DashboardForm : BaseForm
     {
         private int userId;
-        public DashboardForm(int userId)
+        private bool isClient;
+        public DashboardForm(int userId, bool isClient)
         {
             InitializeComponent();
             this.userId = userId;
+            this.isClient = isClient;
         }
 
         private void DashboardForm_Load(object sender, EventArgs e)
@@ -48,8 +50,16 @@ namespace FreelancePlatform.src
         private void backArrowLabel_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var freelancerProfileForm = new FreelancerProfileForm(this.userId);
-            freelancerProfileForm.Show();
+            if (isClient)
+            {
+                var clientProfileForm = new ClientProfileForm(this.userId);
+                clientProfileForm.Show();
+            }
+            else
+            {
+                var freelancerProfileForm = new FreelancerProfileForm(this.userId);
+                freelancerProfileForm.Show();
+            }
         }
 
         private void projectsGrid_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -66,7 +66,7 @@ namespace FreelancePlatform.src
             }
             else if (this.fromDashboard)
             {
-                var dashboardForm = new DashboardForm(this.userId);
+                var dashboardForm = new DashboardForm(this.userId, this.isClient);
                 dashboardForm.Show();
             }
         }
@@ -90,7 +90,7 @@ namespace FreelancePlatform.src
         {
             this.Hide();
             MessageBox.Show("Completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            var browseProjetsForm = new DashboardForm(this.userId);
+            var browseProjetsForm = new DashboardForm(this.userId, this.isClient);
             browseProjetsForm.Show();
         }
     }

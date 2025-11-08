@@ -44,6 +44,7 @@
             companyNameValue = new Label();
             companyNameLabel = new Label();
             backArrowLabel = new Label();
+            dashboardButton = new Button();
             SuspendLayout();
             // 
             // postProjectButton
@@ -198,11 +199,22 @@
             backArrowLabel.Text = "←";
             backArrowLabel.Click += backArrowLabel_Click;
             // 
+            // dashboardButton
+            // 
+            dashboardButton.Location = new Point(12, 291);
+            dashboardButton.Name = "dashboardButton";
+            dashboardButton.Size = new Size(115, 29);
+            dashboardButton.TabIndex = 40;
+            dashboardButton.Text = "Dashboard";
+            dashboardButton.UseVisualStyleBackColor = true;
+            dashboardButton.Click += dashboardButton_Click;
+            // 
             // ClientProfileForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dashboardButton);
             Controls.Add(backArrowLabel);
             Controls.Add(companyNameValue);
             Controls.Add(companyNameLabel);
@@ -244,5 +256,6 @@
         private Label companyNameValue;
         private Label companyNameLabel;
         private Label backArrowLabel;
+        private Button dashboardButton;
     }
 }

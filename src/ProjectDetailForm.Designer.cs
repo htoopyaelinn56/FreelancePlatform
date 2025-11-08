@@ -329,7 +329,6 @@
         private Label statusValue;
         private Label deadlineValue;
         private Label nameValue;
-        private NumericUpDown numericUpDown1;
         private NumericUpDown bidAmountDropdown;
         private Label bidAmountPerHourLabel;
         private Button reviewButton;
