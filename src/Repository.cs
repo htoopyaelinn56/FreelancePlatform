@@ -594,5 +594,72 @@ namespace FreelancePlatform.src
                 throw;
             }
         }
+
+        public List<(string clientName, string freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string projectStatus, int projectId, decimal bidAmount, string bidStatus)> getBidList(int userId, bool isClient)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                string query = @"
+                        SELECT 
+                            c_user.username AS clientName,
+                            f_user.username AS freelancerName,
+                            p.name,
+                            p.description,
+                            p.budget,
+                            p.deadline,
+                            p.skills,
+                            p.status AS projectStatus,
+                            p.id AS projectId,
+                            b.bid_amount AS bidAmount,
+                            b.status AS bidStatus
+                        FROM Bids b
+                        INNER JOIN Projects p ON p.id = b.project_id
+                        INNER JOIN Users c_user ON c_user.id = p.client_id
+                        INNER JOIN Users f_user ON f_user.id = b.freelancer_id
+                        WHERE ";
+
+                query += isClient ? "p.client_id = @UserId" : "b.freelancer_id = @UserId";
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+
+                    var bidList = new List<(string, string, string, string, decimal, DateTime, string, string, int, decimal, string)>();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string clientName = reader.GetString("clientName");
+                            string freelancerName = reader.GetString("freelancerName");
+                            string name = reader.GetString("name");
+                            string description = reader.GetString("description");
+                            decimal budget = reader.GetDecimal("budget");
+                            DateTime deadline = reader.GetDateTime("deadline");
+                            string skills = reader.GetString("skills");
+                            string projectStatus = reader.GetString("projectStatus");
+                            int projectId = reader.GetInt32("projectId");
+                            decimal bidAmount = reader.GetDecimal("bidAmount");
+                            string bidStatus = reader.GetString("bidStatus");
+
+                            bidList.Add((clientName, freelancerName, name, description, budget, deadline, skills, projectStatus, projectId, bidAmount, bidStatus));
+                        }
+                    }
+
+                    return bidList;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while fetching bid list: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
