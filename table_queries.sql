@@ -27,3 +27,39 @@ CREATE TABLE Freelancers (
     pastwork VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
+
+-- 4. Projects Table
+CREATE TABLE Projects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    freelancer_id INT NULL,
+    name VARCHAR(150) NOT NULL,
+    description VARCHAR(500),
+    budget DECIMAL(10, 2),
+    deadline DATE,
+    skills VARCHAR(255),
+    status ENUM('posted', 'in_progress', 'completed', 'closed') DEFAULT 'posted',
+    FOREIGN KEY (client_id) REFERENCES Clients(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (freelancer_id) REFERENCES Freelancers(user_id) ON DELETE SET NULL
+);
+
+-- 5. Bids Table
+CREATE TABLE Bids (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id INT NOT NULL,
+    freelancer_id INT NOT NULL,
+    bid_amount DECIMAL(10, 2) NOT NULL,
+    status ENUM('bid', 'approved', 'rejected') DEFAULT 'bid',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (project_id) REFERENCES Projects(id) ON DELETE CASCADE,
+    FOREIGN KEY (freelancer_id) REFERENCES Freelancers(user_id) ON DELETE CASCADE
+);
+
+-- 6. Reviews Table
+CREATE TABLE Reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id INT NOT NULL,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    comment VARCHAR(255),
+    FOREIGN KEY (project_id) REFERENCES Projects(id) ON DELETE CASCADE
+);
