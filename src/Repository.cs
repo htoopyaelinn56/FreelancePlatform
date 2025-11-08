@@ -395,5 +395,150 @@ namespace FreelancePlatform.src
                 throw;
             }
         }
+
+        public List<(string clientName, string? freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string status, int projectId, bool isClient)> getProjectList(int? userId, bool isClient, string? searchQuery)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                string query = @"
+                        SELECT 
+                            p.id AS projectId,
+                            c_user.username AS clientName,
+                            f_user.username AS freelancerName,
+                            p.name,
+                            p.description,
+                            p.budget,
+                            p.deadline,
+                            p.skills,
+                            p.status,
+                            p.client_id,
+                            p.freelancer_id
+                        FROM Projects p
+                        INNER JOIN Users c_user ON c_user.id = p.client_id
+                        LEFT JOIN Users f_user ON f_user.id = p.freelancer_id
+                        WHERE 1=1
+                    ";
+
+                if (userId.HasValue)
+                {
+                    if (isClient)
+                        query += " AND p.client_id = @UserId";
+                    else
+                        query += " AND p.freelancer_id = @UserId";
+                }
+                else
+                {
+                    query += " AND p.status = 'posted'";
+                }
+
+                if (!string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    query += " AND p.name LIKE @SearchQuery";
+                }
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    if (userId.HasValue)
+                        cmd.Parameters.AddWithValue("@UserId", userId.Value);
+
+                    if (!string.IsNullOrWhiteSpace(searchQuery))
+                        cmd.Parameters.AddWithValue("@SearchQuery", "%" + searchQuery + "%");
+
+                    var projects = new List<(string, string?, string, string, decimal, DateTime, string, string, int, bool)>();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string clientName = reader.GetString("clientName");
+                            string? freelancerName = reader.IsDBNull(reader.GetOrdinal("freelancerName"))
+                                ? null
+                                : reader.GetString("freelancerName");
+                            string name = reader.GetString("name");
+                            string description = reader.GetString("description");
+                            decimal budget = reader.GetDecimal("budget");
+                            DateTime deadline = reader.GetDateTime("deadline");
+                            string skills = reader.GetString("skills");
+                            string status = reader.GetString("status");
+                            int projectId = reader.GetInt32("projectId");
+
+                            projects.Add((clientName, freelancerName, name, description, budget, deadline, skills, status, projectId, isClient));
+                        }
+                    }
+                    return projects;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while fetching projects: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public (string clientName, string? freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string status, int projectId) getProjectDetail(int projectId)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                string query = @"
+                        SELECT 
+                            p.id AS projectId,
+                            c_user.username AS clientName,
+                            f_user.username AS freelancerName,
+                            p.name,
+                            p.description,
+                            p.budget,
+                            p.deadline,
+                            p.skills,
+                            p.status
+                        FROM Projects p
+                        INNER JOIN Users c_user ON c_user.id = p.client_id
+                        LEFT JOIN Users f_user ON f_user.id = p.freelancer_id
+                        WHERE p.id = @ProjectId;";
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ProjectId", projectId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string clientName = reader.GetString("clientName");
+                            string? freelancerName = reader.IsDBNull(reader.GetOrdinal("freelancerName"))
+                                ? null
+                                : reader.GetString("freelancerName");
+                            string name = reader.GetString("name");
+                            string description = reader.GetString("description");
+                            decimal budget = reader.GetDecimal("budget");
+                            DateTime deadline = reader.GetDateTime("deadline");
+                            string skills = reader.GetString("skills");
+                            string status = reader.GetString("status");
+                            int projId = reader.GetInt32("projectId");
+
+                            return (clientName, freelancerName, name, description, budget, deadline, skills, status, projId);
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Project not found.");
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while fetching project detail: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
