@@ -661,5 +661,97 @@ namespace FreelancePlatform.src
             }
         }
 
+        public void respondBid(int projectId, int bidId, bool approved)
+        {
+            try
+            {
+                var conn = DatabaseService.GetConnection();
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        string checkBidQuery = "SELECT status FROM Bids WHERE id = @BidId AND project_id = @ProjectId;";
+                        string currentStatus;
+                        using (var cmdCheck = new MySqlCommand(checkBidQuery, conn, transaction))
+                        {
+                            cmdCheck.Parameters.AddWithValue("@BidId", bidId);
+                            cmdCheck.Parameters.AddWithValue("@ProjectId", projectId);
+
+                            var result = cmdCheck.ExecuteScalar();
+                            if (result == null)
+                                throw new ApplicationException("Bid not found for the given project.");
+
+                            currentStatus = result.ToString()!;
+                            if (currentStatus != "bid")
+                                throw new ApplicationException("This bid has already been responded to.");
+                        }
+
+                        string updateBidQuery = @"
+                                    UPDATE Bids
+                                    SET status = @Status
+                                    WHERE id = @BidId AND project_id = @ProjectId;";
+
+                        using (var cmd = new MySqlCommand(updateBidQuery, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@Status", approved ? "approved" : "rejected");
+                            cmd.Parameters.AddWithValue("@BidId", bidId);
+                            cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        if (approved)
+                        {
+                            string rejectOthersQuery = @"
+                                    UPDATE Bids
+                                    SET status = 'rejected'
+                                    WHERE project_id = @ProjectId AND id != @BidId;";
+                            using (var cmdReject = new MySqlCommand(rejectOthersQuery, conn, transaction))
+                            {
+                                cmdReject.Parameters.AddWithValue("@ProjectId", projectId);
+                                cmdReject.Parameters.AddWithValue("@BidId", bidId);
+                                cmdReject.ExecuteNonQuery();
+                            }
+
+                            int freelancerId;
+                            string getFreelancerQuery = "SELECT freelancer_id FROM Bids WHERE id = @BidId;";
+                            using (var cmdGet = new MySqlCommand(getFreelancerQuery, conn, transaction))
+                            {
+                                cmdGet.Parameters.AddWithValue("@BidId", bidId);
+                                freelancerId = Convert.ToInt32(cmdGet.ExecuteScalar()!);
+                            }
+
+                            string updateProjectQuery = @"
+                                    UPDATE Projects
+                                    SET status = 'in_progress',
+                                        freelancer_id = @FreelancerId
+                                    WHERE id = @ProjectId;";
+                            using (var cmdProj = new MySqlCommand(updateProjectQuery, conn, transaction))
+                            {
+                                cmdProj.Parameters.AddWithValue("@FreelancerId", freelancerId);
+                                cmdProj.Parameters.AddWithValue("@ProjectId", projectId);
+                                cmdProj.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while responding to bid: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
