@@ -753,5 +753,48 @@ namespace FreelancePlatform.src
             }
         }
 
+        public void updateProjectStatus(int projectId, string newStatus /* completed, closed */)
+        {
+            var conn = DatabaseService.GetConnection();
+
+            using (var transaction = conn.BeginTransaction())
+            {
+                try
+                {
+                    string checkStatusQuery = "SELECT status FROM Projects WHERE id = @ProjectId;";
+                    string currentStatus;
+                    using (var cmdCheck = new MySqlCommand(checkStatusQuery, conn, transaction))
+                    {
+                        cmdCheck.Parameters.AddWithValue("@ProjectId", projectId);
+                        var result = cmdCheck.ExecuteScalar();
+                        if (result == null)
+                            throw new ApplicationException("Project not found.");
+
+                        currentStatus = result.ToString()!;
+                        if (currentStatus != "posted")
+                            throw new ApplicationException("Project status can only be updated if it is currently 'posted'.");
+                    }
+
+                    string updateProjectQuery = @"
+                            UPDATE Projects
+                            SET status = @Status
+                            WHERE id = @ProjectId;";
+
+                    using (var cmd = new MySqlCommand(updateProjectQuery, conn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@Status", newStatus);
+                        cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
     }
 }
