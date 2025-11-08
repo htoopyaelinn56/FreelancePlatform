@@ -18,6 +18,7 @@ namespace FreelancePlatform.src
         private bool fromBidAgreement;
         private bool fromBrowseProjects;
         private bool fromDashboard;
+        private Repository repository = new Repository();
         public ProjectDetailForm(int userId, bool isClient, int projectId, bool fromBidAgreement = false, bool fromBrowseProjects = false, bool fromDashboard = false)
         {
             InitializeComponent();
@@ -31,23 +32,7 @@ namespace FreelancePlatform.src
 
         private void ProjectDetailForm_Load(object sender, EventArgs e)
         {
-            if (!this.isClient)
-            {
-                this.reviewButton.Visible = false;
-
-                if (this.fromBidAgreement || this.fromBrowseProjects)
-                {
-                    this.bidButton.Visible = true;
-                    this.bidAmountDropdown.Visible = true;
-                    this.bidAmountPerHourLabel.Visible = true;
-                    this.bidAmountValue.Visible = false;
-                }
-
-                if (this.fromDashboard)
-                {
-                    this.completeButton.Visible = true;
-                }
-            }
+            setData();
         }
 
         private void backArrowLabel_Click(object sender, EventArgs e)
@@ -86,12 +71,62 @@ namespace FreelancePlatform.src
             browseProjetsForm.Show();
         }
 
-        private void completeButton_Click(object sender, EventArgs e)
+        private void completeOrCloseButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            MessageBox.Show("Completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+           
+            var isClose = this.isClient;
+            // repository.updateProjectStatus(this.projectId, isClose ? "closed" : "completed");
+            MessageBox.Show((isClose ? "Closed" : "Completed") + " project successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             var browseProjetsForm = new DashboardForm(this.userId, this.isClient);
             browseProjetsForm.Show();
+            this.Hide();
+        }
+
+        void setData() 
+        { 
+            var projectDetails = repository.getProjectDetail(this.projectId);
+            nameValue.Text = projectDetails.name;
+            descriptionValue.Text = projectDetails.description;
+            deadlineValue.Text = projectDetails.deadline.ToString("yyyy-MM-dd");
+            bidAmountValue.Text = projectDetails.budget.ToString("F2");
+            skillFieldLabel.Text = projectDetails.skills;
+            clientNameValue.Text= projectDetails.clientName;
+            freelancerNameValue.Text = projectDetails.freelancerName ?? "";
+            statusValue.Text = projectDetails.status;
+            descriptionValue.Text = projectDetails.description;
+            ratingValue.Text = projectDetails.reviewRating?.ToString() ?? "";
+            commentValue.Text = projectDetails.reviewComment ?? "";
+
+            var isCompleted = projectDetails.status == "completed";
+            var isPosted = projectDetails.status == "posted";
+            var isClosed = projectDetails.status == "closed";
+            var inProgress = projectDetails.status == "in_progress";
+
+            completeOrCloseButton.Text = isClient ? "Close" : "Complete";
+
+
+            if (this.isClient)
+            {
+                completeOrCloseButton.Visible = isPosted;
+                reviewButton.Visible = isCompleted;
+            }
+            else
+            {
+                this.reviewButton.Visible = false;
+
+                if (this.fromBidAgreement || this.fromBrowseProjects)
+                {
+                    this.bidButton.Visible = true;
+                    this.bidAmountDropdown.Visible = true;
+                    this.bidAmountPerHourLabel.Visible = true;
+                    this.bidAmountValue.Visible = false;
+                }
+
+                if (this.fromDashboard)
+                {
+                    this.completeOrCloseButton.Visible = true;
+                }
+            }
         }
     }
 }

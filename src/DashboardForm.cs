@@ -24,7 +24,7 @@ namespace FreelancePlatform.src
 
         private void DashboardForm_Load(object sender, EventArgs e)
         {
-            projectsGrid.ColumnCount = 9;
+            projectsGrid.ColumnCount = 10;
             projectsGrid.Columns[0].Name = "ID";
             projectsGrid.Columns[0].FillWeight = 40;
             projectsGrid.Columns[1].Name = "Name";
@@ -32,9 +32,10 @@ namespace FreelancePlatform.src
             projectsGrid.Columns[3].Name = "Deadline";
             projectsGrid.Columns[4].Name = "Budget ($)";
             projectsGrid.Columns[5].Name = "Required Skill";
-            projectsGrid.Columns[6].Name = "Client Name";
-            projectsGrid.Columns[7].Name = "Freelancer Name";
-            projectsGrid.Columns[8].Name = "Action";
+            projectsGrid.Columns[6].Name = "Status";
+            projectsGrid.Columns[7].Name = "Client Name";
+            projectsGrid.Columns[8].Name = "Freelancer Name";
+            projectsGrid.Columns[9].Name = "Action";
 
             projectsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             projectsGrid.RowTemplate.Height = 50;
@@ -88,6 +89,7 @@ namespace FreelancePlatform.src
                     i.deadline.ToString("yyyy-MM-dd"),
                     i.budget.ToString(),
                     i.skills,
+                    i.status,
                     i.clientName,
                     i.freelancerName ?? "",
                     "View"

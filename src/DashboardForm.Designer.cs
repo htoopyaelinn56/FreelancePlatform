@@ -62,7 +62,7 @@
             projectsGrid.Location = new Point(12, 59);
             projectsGrid.Name = "projectsGrid";
             projectsGrid.RowHeadersWidth = 51;
-            projectsGrid.Size = new Size(946, 572);
+            projectsGrid.Size = new Size(1305, 661);
             projectsGrid.TabIndex = 46;
             projectsGrid.CellClick += projectsGrid_CellClick;
             // 
@@ -70,7 +70,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(970, 643);
+            ClientSize = new Size(1329, 732);
             Controls.Add(projectsGrid);
             Controls.Add(backArrowLabel);
             Controls.Add(dashboardLabel);

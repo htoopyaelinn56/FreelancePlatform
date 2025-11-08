@@ -50,7 +50,11 @@
             bidAmountPerHourLabel = new Label();
             reviewButton = new Button();
             bidButton = new Button();
-            completeButton = new Button();
+            completeOrCloseButton = new Button();
+            ratingValue = new Label();
+            ratingLabel = new Label();
+            commentValue = new Label();
+            commentLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)bidAmountDropdown).BeginInit();
             SuspendLayout();
             // 
@@ -243,7 +247,7 @@
             // 
             // reviewButton
             // 
-            reviewButton.Location = new Point(412, 394);
+            reviewButton.Location = new Point(457, 510);
             reviewButton.Name = "reviewButton";
             reviewButton.Size = new Size(110, 30);
             reviewButton.TabIndex = 62;
@@ -253,7 +257,7 @@
             // 
             // bidButton
             // 
-            bidButton.Location = new Point(528, 394);
+            bidButton.Location = new Point(573, 510);
             bidButton.Name = "bidButton";
             bidButton.Size = new Size(110, 30);
             bidButton.TabIndex = 63;
@@ -262,23 +266,63 @@
             bidButton.Visible = false;
             bidButton.Click += bidButton_Click;
             // 
-            // completeButton
+            // completeOrCloseButton
             // 
-            completeButton.Location = new Point(644, 394);
-            completeButton.Name = "completeButton";
-            completeButton.Size = new Size(110, 30);
-            completeButton.TabIndex = 64;
-            completeButton.Text = "Complete";
-            completeButton.UseVisualStyleBackColor = true;
-            completeButton.Visible = false;
-            completeButton.Click += completeButton_Click;
+            completeOrCloseButton.Location = new Point(689, 510);
+            completeOrCloseButton.Name = "completeOrCloseButton";
+            completeOrCloseButton.Size = new Size(110, 30);
+            completeOrCloseButton.TabIndex = 64;
+            completeOrCloseButton.Text = "CompleteOrClose";
+            completeOrCloseButton.UseVisualStyleBackColor = true;
+            completeOrCloseButton.Visible = false;
+            completeOrCloseButton.Click += completeOrCloseButton_Click;
+            // 
+            // ratingValue
+            // 
+            ratingValue.AutoSize = true;
+            ratingValue.Location = new Point(321, 385);
+            ratingValue.Name = "ratingValue";
+            ratingValue.Size = new Size(130, 22);
+            ratingValue.TabIndex = 68;
+            ratingValue.Text = "Rating Value";
+            // 
+            // ratingLabel
+            // 
+            ratingLabel.AutoSize = true;
+            ratingLabel.Location = new Point(50, 385);
+            ratingLabel.Name = "ratingLabel";
+            ratingLabel.Size = new Size(70, 22);
+            ratingLabel.TabIndex = 67;
+            ratingLabel.Text = "Rating";
+            // 
+            // commentValue
+            // 
+            commentValue.AutoSize = true;
+            commentValue.Location = new Point(321, 425);
+            commentValue.Name = "commentValue";
+            commentValue.Size = new Size(130, 22);
+            commentValue.TabIndex = 70;
+            commentValue.Text = "CommentValue";
+            // 
+            // commentLabel
+            // 
+            commentLabel.AutoSize = true;
+            commentLabel.Location = new Point(50, 425);
+            commentLabel.Name = "commentLabel";
+            commentLabel.Size = new Size(80, 22);
+            commentLabel.TabIndex = 69;
+            commentLabel.Text = "Comment";
             // 
             // ProjectDetailForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(completeButton);
+            ClientSize = new Size(877, 567);
+            Controls.Add(commentValue);
+            Controls.Add(commentLabel);
+            Controls.Add(ratingValue);
+            Controls.Add(ratingLabel);
+            Controls.Add(completeOrCloseButton);
             Controls.Add(bidButton);
             Controls.Add(reviewButton);
             Controls.Add(bidAmountPerHourLabel);
@@ -333,6 +377,10 @@
         private Label bidAmountPerHourLabel;
         private Button reviewButton;
         private Button bidButton;
-        private Button completeButton;
+        private Button completeOrCloseButton;
+        private Label ratingValue;
+        private Label ratingLabel;
+        private Label commentValue;
+        private Label commentLabel;
     }
 }
