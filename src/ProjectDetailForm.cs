@@ -139,7 +139,7 @@ namespace FreelancePlatform.src
 
                 if (this.fromDashboard)
                 {
-                    this.completeOrCloseButton.Visible = true;
+                    this.completeOrCloseButton.Visible = inProgress;
                 }
             }
         }

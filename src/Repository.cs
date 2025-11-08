@@ -809,8 +809,8 @@ namespace FreelancePlatform.src
                             throw new ApplicationException("Project not found.");
 
                         currentStatus = result.ToString()!;
-                        if (currentStatus != "posted")
-                            throw new ApplicationException("Project status can only be updated if it is currently 'posted'.");
+                        if (currentStatus != "posted" && currentStatus != "in_progress")
+                            throw new ApplicationException("Project status can only be updated if it is currently 'posted' or 'in_progress'.");
                     }
 
                     string updateProjectQuery = @"
