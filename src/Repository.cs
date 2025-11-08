@@ -804,5 +804,47 @@ namespace FreelancePlatform.src
                 }
             }
         }
+
+        public void giveReview(int projectId, int rating, string comment)
+        {
+            try
+            {
+                if (rating < 0 || rating > 5)
+                    throw new ApplicationException("Rating must be between 0 and 5.");
+
+                var conn = DatabaseService.GetConnection();
+
+                string checkQuery = "SELECT COUNT(*) FROM Reviews WHERE project_id = @ProjectId";
+                using (var checkCmd = new MySqlCommand(checkQuery, conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@ProjectId", projectId);
+                    long existingCount = (long)checkCmd.ExecuteScalar();
+
+                    if (existingCount > 0)
+                        throw new ApplicationException("A review has already been submitted for this project.");
+                }
+
+                string insertQuery = @"
+                        INSERT INTO Reviews (project_id, rating, comment, created_at)
+                        VALUES (@ProjectId, @Rating, @Comment, NOW())";
+
+                using (var cmd = new MySqlCommand(insertQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                    cmd.Parameters.AddWithValue("@Rating", rating);
+                    cmd.Parameters.AddWithValue("@Comment", comment ?? string.Empty);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while submitting review: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
