@@ -61,7 +61,7 @@ namespace FreelancePlatform.src
                 freelancerProfileForm.Show();
             }
         }
-
+            
         private void projectsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // If Action button clicked
