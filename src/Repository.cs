@@ -595,36 +595,43 @@ namespace FreelancePlatform.src
             }
         }
 
-        public List<(string clientName, string freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string projectStatus, int projectId, decimal bidAmount, string bidStatus)> getBidList(int userId, bool isClient)
+        public List<(string clientName, string freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string projectStatus, int projectId, decimal bidAmount, string bidStatus)> getBidList(int userId, bool isClient, int? projectId = null)
         {
             try
             {
                 var conn = DatabaseService.GetConnection();
 
                 string query = @"
-                        SELECT 
-                            c_user.username AS clientName,
-                            f_user.username AS freelancerName,
-                            p.name,
-                            p.description,
-                            p.budget,
-                            p.deadline,
-                            p.skills,
-                            p.status AS projectStatus,
-                            p.id AS projectId,
-                            b.bid_amount AS bidAmount,
-                            b.status AS bidStatus
-                        FROM Bids b
-                        INNER JOIN Projects p ON p.id = b.project_id
-                        INNER JOIN Users c_user ON c_user.id = p.client_id
-                        INNER JOIN Users f_user ON f_user.id = b.freelancer_id
-                        WHERE ";
+                    SELECT 
+                        c_user.username AS clientName,
+                        f_user.username AS freelancerName,
+                        p.name,
+                        p.description,
+                        p.budget,
+                        p.deadline,
+                        p.skills,
+                        p.status AS projectStatus,
+                        p.id AS projectId,
+                        b.bid_amount AS bidAmount,
+                        b.status AS bidStatus
+                    FROM Bids b
+                    INNER JOIN Projects p ON p.id = b.project_id
+                    INNER JOIN Users c_user ON c_user.id = p.client_id
+                    INNER JOIN Users f_user ON f_user.id = b.freelancer_id
+                    WHERE ";
 
                 query += isClient ? "p.client_id = @UserId" : "b.freelancer_id = @UserId";
+                if (projectId != null)
+                {
+                    query += " AND p.id = @ProjectId";
+                }
 
                 using (var cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@UserId", userId);
+
+                    if (projectId != null)
+                        cmd.Parameters.AddWithValue("@ProjectId", projectId);
 
                     var bidList = new List<(string, string, string, string, decimal, DateTime, string, string, int, decimal, string)>();
 
@@ -640,11 +647,11 @@ namespace FreelancePlatform.src
                             DateTime deadline = reader.GetDateTime("deadline");
                             string skills = reader.GetString("skills");
                             string projectStatus = reader.GetString("projectStatus");
-                            int projectId = reader.GetInt32("projectId");
+                            int projectIdVal = reader.GetInt32("projectId");
                             decimal bidAmount = reader.GetDecimal("bidAmount");
                             string bidStatus = reader.GetString("bidStatus");
 
-                            bidList.Add((clientName, freelancerName, name, description, budget, deadline, skills, projectStatus, projectId, bidAmount, bidStatus));
+                            bidList.Add((clientName, freelancerName, name, description, budget, deadline, skills, projectStatus, projectIdVal, bidAmount, bidStatus));
                         }
                     }
 
@@ -660,6 +667,7 @@ namespace FreelancePlatform.src
                 throw;
             }
         }
+
 
         public void respondBid(int projectId, int bidId, bool approved)
         {
