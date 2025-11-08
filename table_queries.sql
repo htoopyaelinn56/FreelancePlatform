@@ -50,7 +50,6 @@ CREATE TABLE Bids (
     freelancer_id INT NOT NULL,
     bid_amount DECIMAL(10, 2) NOT NULL,
     status ENUM('bid', 'approved', 'rejected') DEFAULT 'bid',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (project_id) REFERENCES Projects(id) ON DELETE CASCADE,
     FOREIGN KEY (freelancer_id) REFERENCES Freelancers(user_id) ON DELETE CASCADE
 );
