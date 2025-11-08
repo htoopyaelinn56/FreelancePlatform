@@ -12,3 +12,5 @@ Bid agreement for freelancer - show projects that they bid to clients
 Projects Table
 BidAgreements Table 
 Reviews Table
+
+Check component variable names
