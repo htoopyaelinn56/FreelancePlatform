@@ -9,8 +9,8 @@
 ~~Users~~
 ~~Clients~~
 ~~Freelancers~~
-Projects Table
-BidAgreements Table 
-Reviews Table
+~~Projects Table~~
+~~Bids Table~~
+~~Reviews Table~~
 
 Check component variable names
