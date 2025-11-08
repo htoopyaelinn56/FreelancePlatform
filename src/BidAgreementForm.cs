@@ -14,6 +14,7 @@ namespace FreelancePlatform.src
     {
         private int userId;
         private bool isClient; // else isFreelancer
+        private Repository repository = new Repository();
         public BidAgreementForm(int userId, bool isClient)
         {
             InitializeComponent();
@@ -23,20 +24,22 @@ namespace FreelancePlatform.src
 
         private void BidAgreementForm_Load(object? sender, EventArgs? e)
         {
-            bidAgreementDataGrid.ColumnCount = 9 - (isClient ? 0 : 2);
+            bidAgreementDataGrid.ColumnCount = 11 - (isClient ? 0 : 2);
             bidAgreementDataGrid.Columns[0].Name = "ID";
             bidAgreementDataGrid.Columns[0].FillWeight = 40;
             bidAgreementDataGrid.Columns[1].Name = "Title";
             bidAgreementDataGrid.Columns[2].Name = "Description";
             bidAgreementDataGrid.Columns[3].Name = "Deadline";
             bidAgreementDataGrid.Columns[4].Name = "Budget ($)";
-            bidAgreementDataGrid.Columns[5].Name = "Required Skill";
-            bidAgreementDataGrid.Columns[6].Name = "Status";
+            bidAgreementDataGrid.Columns[5].Name = "Bid Amount ($)";
+            bidAgreementDataGrid.Columns[6].Name = "Required Skill";
+            bidAgreementDataGrid.Columns[7].Name = this.isClient ? "Freelancer" : "Client";
+            bidAgreementDataGrid.Columns[8].Name = "Status";
 
             if (this.isClient)
             {
-                bidAgreementDataGrid.Columns[7].Name = "Action 1";
-                bidAgreementDataGrid.Columns[8].Name = "Action 2";
+                bidAgreementDataGrid.Columns[9].Name = "Action 1";
+                bidAgreementDataGrid.Columns[10].Name = "Action 2";
             }
 
             bidAgreementDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -46,44 +49,45 @@ namespace FreelancePlatform.src
             bidAgreementDataGrid.RowHeadersVisible = false;
             bidAgreementDataGrid.AllowUserToAddRows = false;
 
-            AddSampleData();
+            setData();
         }
 
-        private void AddSampleData()
+        private void setData()
         {
             bidAgreementDataGrid.Rows.Clear();
-            // Sample rows
-            string[,] sampleData = new string[,]
-            {
-        { "1", "Website Design", "Design a website for shop", "2025-12-10", "500", "UI/UX", "posted" },
-        { "2", "Mobile App", "Flutter app for e-commerce", "2025-12-20", "1000", "Flutter,Dart", "bid" },
-        { "3", "Data Analysis", "Analyze sales data", "2025-11-30", "300", "Python,ML", "confirmed" },
-        { "4", "Logo Design", "Logo for new brand", "2025-12-05", "100", "Design,Illustrator", "completed" }
-            };
+            var bidAgreementData = repository.getBidList(userId, isClient);
 
-            for (int i = 0; i < sampleData.GetLength(0); i++)
+            if (bidAgreementData == null || bidAgreementData.Count == 0)
+                return;
+
+            foreach (var bid in bidAgreementData)
             {
                 int rowIndex = bidAgreementDataGrid.Rows.Add(
-                    sampleData[i, 0], sampleData[i, 1], sampleData[i, 2],
-                    sampleData[i, 3], sampleData[i, 4], sampleData[i, 5],
-                    sampleData[i, 6] // Status
+                    bid.id.ToString(),
+                    bid.name,
+                    bid.description,
+                    bid.deadline.ToString("yyyy-MM-dd"),
+                    bid.budget.ToString("C"),
+                    bid.bidAmount.ToString("C"),
+                    bid.skills,
+                    this.isClient ? bid.freelancerName : bid.clientName,
+                    bid.bidStatus
                 );
 
                 // Set dynamic actions if client
                 if (this.isClient)
                 {
-                    string status = sampleData[i, 6];
                     DataGridViewRow row = bidAgreementDataGrid.Rows[rowIndex];
+                    string status = bid.bidStatus?.ToLower() ?? "";
 
                     if (status == "bid")
                     {
                         row.Cells["Action 1"].Value = "Accept";
                         row.Cells["Action 2"].Value = "Reject";
                     }
-                    else if (status == "posted" || status == "confirmed" || status == "completed")
+                    else
                     {
                         row.Cells["Action 1"].Value = "Details";
-                        row.Cells["Action 2"].Value = "Remove";
                     }
                 }
             }
@@ -113,18 +117,18 @@ namespace FreelancePlatform.src
             string buttonName = bidAgreementDataGrid.Columns[e.ColumnIndex].Name;
             string status = rows[e.RowIndex].Cells["Status"].Value.ToString()!.ToLower();
 
-            if (buttonName == "Action 1") 
+            if (buttonName == "Action 1")
             {
                 if (status == "bid")
                 {
                     // Accept button
                     MessageBox.Show($"Accepted bid for project ID: {projectId}");
                 }
-                else if (status == "posted" || status == "confirmed" || status == "completed")
+                else
                 {
                     this.Hide();
                     int projectIdInteger = int.Parse(projectId);
-                    var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: this.isClient, projectId: projectIdInteger, fromBidAgreement : true);
+                    var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: this.isClient, projectId: projectIdInteger, fromBidAgreement: true);
                     projectDetailForm.Show();
                 }
             }
@@ -135,19 +139,10 @@ namespace FreelancePlatform.src
                     // Reject button
                     MessageBox.Show($"Rejected bid for project ID: {projectId}");
                 }
-                else if (status == "confirmed")
-                {
-                    MessageBox.Show("You can\'t remove the ongoing project. You can remove when the project is Completed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else if (status == "posted" || status == "completed")
-                {
-                    // Remove button (soft delete)
-                    MessageBox.Show($"Removed project ID: {projectId} from listings");
-                }
             }
 
 
-            BidAgreementForm_Load(null, null);
+            BidAgreementForm_Load(sender, e);
         }
     }
 }

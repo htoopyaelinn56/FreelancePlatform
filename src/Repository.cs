@@ -623,7 +623,7 @@ namespace FreelancePlatform.src
             }
         }
 
-        public List<(string clientName, string freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string projectStatus, int projectId, decimal bidAmount, string bidStatus)> getBidList(int userId, bool isClient, int? projectId = null)
+        public List<(int id, string clientName, string freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string projectStatus, int projectId, decimal bidAmount, string bidStatus)> getBidList(int userId, bool isClient, int? projectId = null)
         {
             try
             {
@@ -640,6 +640,7 @@ namespace FreelancePlatform.src
                         p.skills,
                         p.status AS projectStatus,
                         p.id AS projectId,
+                        b.id AS id, 
                         b.bid_amount AS bidAmount,
                         b.status AS bidStatus
                     FROM Bids b
@@ -661,12 +662,13 @@ namespace FreelancePlatform.src
                     if (projectId != null)
                         cmd.Parameters.AddWithValue("@ProjectId", projectId);
 
-                    var bidList = new List<(string, string, string, string, decimal, DateTime, string, string, int, decimal, string)>();
+                    var bidList = new List<(int, string, string, string, string, decimal, DateTime, string, string, int, decimal, string)>();
 
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
+                            int id = reader.GetInt32("id");
                             string clientName = reader.GetString("clientName");
                             string freelancerName = reader.GetString("freelancerName");
                             string name = reader.GetString("name");
@@ -679,7 +681,7 @@ namespace FreelancePlatform.src
                             decimal bidAmount = reader.GetDecimal("bidAmount");
                             string bidStatus = reader.GetString("bidStatus");
 
-                            bidList.Add((clientName, freelancerName, name, description, budget, deadline, skills, projectStatus, projectIdVal, bidAmount, bidStatus));
+                            bidList.Add((id, clientName, freelancerName, name, description, budget, deadline, skills, projectStatus, projectIdVal, bidAmount, bidStatus));
                         }
                     }
 

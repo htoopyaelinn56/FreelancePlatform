@@ -62,7 +62,7 @@
             bidAgreementDataGrid.Location = new Point(12, 60);
             bidAgreementDataGrid.Name = "bidAgreementDataGrid";
             bidAgreementDataGrid.RowHeadersWidth = 51;
-            bidAgreementDataGrid.Size = new Size(1060, 434);
+            bidAgreementDataGrid.Size = new Size(1159, 546);
             bidAgreementDataGrid.TabIndex = 41;
             bidAgreementDataGrid.CellClick += dataGridView1_CellClick;
             // 
@@ -70,7 +70,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1084, 506);
+            ClientSize = new Size(1183, 618);
             Controls.Add(bidAgreementDataGrid);
             Controls.Add(backArrowLabel);
             Controls.Add(bidAgreementLabel);
