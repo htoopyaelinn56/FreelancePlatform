@@ -487,67 +487,6 @@ namespace FreelancePlatform.src
             }
         }
 
-        public (string clientName, string? freelancerName, string name, string description, decimal budget, DateTime deadline, string skills, string status, int projectId) getProjectDetail(int projectId)
-        {
-            try
-            {
-                var conn = DatabaseService.GetConnection();
-
-                string query = @"
-                        SELECT 
-                            p.id AS projectId,
-                            c_user.username AS clientName,
-                            f_user.username AS freelancerName,
-                            p.name,
-                            p.description,
-                            p.budget,
-                            p.deadline,
-                            p.skills,
-                            p.status
-                        FROM Projects p
-                        INNER JOIN Users c_user ON c_user.id = p.client_id
-                        LEFT JOIN Users f_user ON f_user.id = p.freelancer_id
-                        WHERE p.id = @ProjectId;";
-
-                using (var cmd = new MySqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@ProjectId", projectId);
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            string clientName = reader.GetString("clientName");
-                            string? freelancerName = reader.IsDBNull(reader.GetOrdinal("freelancerName"))
-                                ? null
-                                : reader.GetString("freelancerName");
-                            string name = reader.GetString("name");
-                            string description = reader.GetString("description");
-                            decimal budget = reader.GetDecimal("budget");
-                            DateTime deadline = reader.GetDateTime("deadline");
-                            string skills = reader.GetString("skills");
-                            string status = reader.GetString("status");
-                            int projId = reader.GetInt32("projectId");
-
-                            return (clientName, freelancerName, name, description, budget, deadline, skills, status, projId);
-                        }
-                        else
-                        {
-                            throw new ApplicationException("Project not found.");
-                        }
-                    }
-                }
-            }
-            catch (MySqlException ex)
-            {
-                throw new ApplicationException("Database error while fetching project detail: " + ex.Message);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public void createBidForProject(int projectId, int freelancerId, decimal? bidAmount)
         {
             try
