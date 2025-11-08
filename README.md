@@ -6,11 +6,11 @@
 - Bid agreement for client - show projects from freelancers who bid <br>
 - Bid agreement for freelancer - show projects that they bid to clients <br>
 
-~~Users~~
-~~Clients~~
-~~Freelancers~~
-Projects Table
-BidAgreements Table 
-Reviews Table
+~~Users~~ <br>
+~~Clients~~ <br>
+~~Freelancers~~ <br>
+~~Projects Table~~ <br>
+~~Bids Table~~ <br>
+~~Reviews Table~~ <br>
 
 Check component variable names
