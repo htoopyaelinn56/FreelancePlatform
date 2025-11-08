@@ -75,6 +75,7 @@
             postButton.TabIndex = 48;
             postButton.Text = "Post";
             postButton.UseVisualStyleBackColor = true;
+            postButton.Click += postButton_Click;
             // 
             // descriptionTextBox
             // 
