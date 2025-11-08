@@ -14,6 +14,7 @@ namespace FreelancePlatform.src
     {
         private int userId;
         private bool isClient;
+        private Repository repository = new Repository();
         public DashboardForm(int userId, bool isClient)
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace FreelancePlatform.src
 
         private void DashboardForm_Load(object sender, EventArgs e)
         {
-            projectsGrid.ColumnCount = 8;
+            projectsGrid.ColumnCount = 9;
             projectsGrid.Columns[0].Name = "ID";
             projectsGrid.Columns[0].FillWeight = 40;
             projectsGrid.Columns[1].Name = "Name";
@@ -32,7 +33,8 @@ namespace FreelancePlatform.src
             projectsGrid.Columns[4].Name = "Budget ($)";
             projectsGrid.Columns[5].Name = "Required Skill";
             projectsGrid.Columns[6].Name = "Client Name";
-            projectsGrid.Columns[7].Name = "Action";
+            projectsGrid.Columns[7].Name = "Freelancer Name";
+            projectsGrid.Columns[8].Name = "Action";
 
             projectsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             projectsGrid.RowTemplate.Height = 50;
@@ -41,10 +43,7 @@ namespace FreelancePlatform.src
             projectsGrid.RowHeadersVisible = false;
             projectsGrid.AllowUserToAddRows = false;
 
-            // Add dummy data
-            projectsGrid.Rows.Add("1", "Website Design", "Design a modern website", "2025-11-15", "500", "UI/UX", "Alice", "View");
-            projectsGrid.Rows.Add("2", "Mobile App", "Develop a Flutter app", "2025-12-01", "1200", "Flutter, Firebase", "Bob", "View");
-            projectsGrid.Rows.Add("3", "Data Analysis", "Analyze sales data", "2025-11-30", "800", "Python, Pandas", "Charlie", "View");
+            setData();
         }
 
         private void backArrowLabel_Click(object sender, EventArgs e)
@@ -73,6 +72,26 @@ namespace FreelancePlatform.src
                 var projectDetail = new ProjectDetailForm(userId: this.userId, isClient: this.isClient, projectId: projectIdInInteger, fromDashboard: true);
                 projectDetail.Show();
 
+            }
+        }
+
+        void setData()
+        {
+            var projects = repository.getProjectList(this.userId, this.isClient, null);
+
+            foreach(var i in projects)
+            {
+                projectsGrid.Rows.Add(
+                    i.projectId.ToString(),
+                    i.name,
+                    i.description,
+                    i.deadline.ToString("yyyy-MM-dd"),
+                    i.budget.ToString(),
+                    i.skills,
+                    i.clientName,
+                    i.freelancerName ?? "",
+                    "View"
+                );
             }
         }
     }
