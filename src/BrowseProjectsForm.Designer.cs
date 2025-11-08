@@ -66,6 +66,7 @@
             searchButton.TabIndex = 44;
             searchButton.Text = "Search";
             searchButton.UseVisualStyleBackColor = true;
+            searchButton.Click += searchButton_Click;
             // 
             // searchTextField
             // 

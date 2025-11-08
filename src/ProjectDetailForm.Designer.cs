@@ -55,6 +55,8 @@
             ratingLabel = new Label();
             commentValue = new Label();
             commentLabel = new Label();
+            budgetValue = new Label();
+            budgetLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)bidAmountDropdown).BeginInit();
             SuspendLayout();
             // 
@@ -101,7 +103,7 @@
             // skillFieldLabel
             // 
             skillFieldLabel.AutoSize = true;
-            skillFieldLabel.Location = new Point(50, 220);
+            skillFieldLabel.Location = new Point(50, 255);
             skillFieldLabel.Name = "skillFieldLabel";
             skillFieldLabel.Size = new Size(120, 22);
             skillFieldLabel.TabIndex = 46;
@@ -119,7 +121,7 @@
             // clientNameLabel
             // 
             clientNameLabel.AutoSize = true;
-            clientNameLabel.Location = new Point(50, 260);
+            clientNameLabel.Location = new Point(50, 295);
             clientNameLabel.Name = "clientNameLabel";
             clientNameLabel.Size = new Size(120, 22);
             clientNameLabel.TabIndex = 48;
@@ -128,7 +130,7 @@
             // bidAmountLabel
             // 
             bidAmountLabel.AutoSize = true;
-            bidAmountLabel.Location = new Point(50, 180);
+            bidAmountLabel.Location = new Point(50, 215);
             bidAmountLabel.Name = "bidAmountLabel";
             bidAmountLabel.Size = new Size(110, 22);
             bidAmountLabel.TabIndex = 47;
@@ -137,7 +139,7 @@
             // freelancerNameLabel
             // 
             freelancerNameLabel.AutoSize = true;
-            freelancerNameLabel.Location = new Point(50, 300);
+            freelancerNameLabel.Location = new Point(50, 335);
             freelancerNameLabel.Name = "freelancerNameLabel";
             freelancerNameLabel.Size = new Size(160, 22);
             freelancerNameLabel.TabIndex = 49;
@@ -146,7 +148,7 @@
             // descriptionLabel
             // 
             descriptionLabel.AutoSize = true;
-            descriptionLabel.Location = new Point(50, 340);
+            descriptionLabel.Location = new Point(50, 375);
             descriptionLabel.Name = "descriptionLabel";
             descriptionLabel.Size = new Size(120, 22);
             descriptionLabel.TabIndex = 50;
@@ -155,7 +157,7 @@
             // descriptionValue
             // 
             descriptionValue.AutoSize = true;
-            descriptionValue.Location = new Point(321, 340);
+            descriptionValue.Location = new Point(321, 375);
             descriptionValue.Name = "descriptionValue";
             descriptionValue.Size = new Size(120, 22);
             descriptionValue.TabIndex = 58;
@@ -164,7 +166,7 @@
             // freelancerNameValue
             // 
             freelancerNameValue.AutoSize = true;
-            freelancerNameValue.Location = new Point(321, 300);
+            freelancerNameValue.Location = new Point(321, 335);
             freelancerNameValue.Name = "freelancerNameValue";
             freelancerNameValue.Size = new Size(160, 22);
             freelancerNameValue.TabIndex = 57;
@@ -173,7 +175,7 @@
             // clientNameValue
             // 
             clientNameValue.AutoSize = true;
-            clientNameValue.Location = new Point(321, 260);
+            clientNameValue.Location = new Point(321, 295);
             clientNameValue.Name = "clientNameValue";
             clientNameValue.Size = new Size(120, 22);
             clientNameValue.TabIndex = 56;
@@ -182,7 +184,7 @@
             // bidAmountValue
             // 
             bidAmountValue.AutoSize = true;
-            bidAmountValue.Location = new Point(321, 180);
+            bidAmountValue.Location = new Point(321, 215);
             bidAmountValue.Name = "bidAmountValue";
             bidAmountValue.Size = new Size(110, 22);
             bidAmountValue.TabIndex = 55;
@@ -191,7 +193,7 @@
             // skillFieldValue
             // 
             skillFieldValue.AutoSize = true;
-            skillFieldValue.Location = new Point(321, 220);
+            skillFieldValue.Location = new Point(321, 255);
             skillFieldValue.Name = "skillFieldValue";
             skillFieldValue.Size = new Size(120, 22);
             skillFieldValue.TabIndex = 54;
@@ -227,7 +229,7 @@
             // bidAmountDropdown
             // 
             bidAmountDropdown.Increment = new decimal(new int[] { 100, 0, 0, 0 });
-            bidAmountDropdown.Location = new Point(321, 180);
+            bidAmountDropdown.Location = new Point(321, 215);
             bidAmountDropdown.Maximum = new decimal(new int[] { 1410065407, 2, 0, 0 });
             bidAmountDropdown.Name = "bidAmountDropdown";
             bidAmountDropdown.Size = new Size(150, 29);
@@ -238,7 +240,7 @@
             // bidAmountPerHourLabel
             // 
             bidAmountPerHourLabel.AutoSize = true;
-            bidAmountPerHourLabel.Location = new Point(477, 182);
+            bidAmountPerHourLabel.Location = new Point(477, 217);
             bidAmountPerHourLabel.Name = "bidAmountPerHourLabel";
             bidAmountPerHourLabel.Size = new Size(50, 22);
             bidAmountPerHourLabel.TabIndex = 61;
@@ -280,7 +282,7 @@
             // ratingValue
             // 
             ratingValue.AutoSize = true;
-            ratingValue.Location = new Point(321, 385);
+            ratingValue.Location = new Point(321, 420);
             ratingValue.Name = "ratingValue";
             ratingValue.Size = new Size(130, 22);
             ratingValue.TabIndex = 68;
@@ -289,7 +291,7 @@
             // ratingLabel
             // 
             ratingLabel.AutoSize = true;
-            ratingLabel.Location = new Point(50, 385);
+            ratingLabel.Location = new Point(50, 420);
             ratingLabel.Name = "ratingLabel";
             ratingLabel.Size = new Size(70, 22);
             ratingLabel.TabIndex = 67;
@@ -298,7 +300,7 @@
             // commentValue
             // 
             commentValue.AutoSize = true;
-            commentValue.Location = new Point(321, 425);
+            commentValue.Location = new Point(321, 460);
             commentValue.Name = "commentValue";
             commentValue.Size = new Size(130, 22);
             commentValue.TabIndex = 70;
@@ -307,17 +309,37 @@
             // commentLabel
             // 
             commentLabel.AutoSize = true;
-            commentLabel.Location = new Point(50, 425);
+            commentLabel.Location = new Point(50, 460);
             commentLabel.Name = "commentLabel";
             commentLabel.Size = new Size(80, 22);
             commentLabel.TabIndex = 69;
             commentLabel.Text = "Comment";
+            // 
+            // budgetValue
+            // 
+            budgetValue.AutoSize = true;
+            budgetValue.Location = new Point(321, 174);
+            budgetValue.Name = "budgetValue";
+            budgetValue.Size = new Size(120, 22);
+            budgetValue.TabIndex = 72;
+            budgetValue.Text = "BudgetValue";
+            // 
+            // budgetLabel
+            // 
+            budgetLabel.AutoSize = true;
+            budgetLabel.Location = new Point(50, 174);
+            budgetLabel.Name = "budgetLabel";
+            budgetLabel.Size = new Size(60, 22);
+            budgetLabel.TabIndex = 71;
+            budgetLabel.Text = "Buget";
             // 
             // ProjectDetailForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(877, 567);
+            Controls.Add(budgetValue);
+            Controls.Add(budgetLabel);
             Controls.Add(commentValue);
             Controls.Add(commentLabel);
             Controls.Add(ratingValue);
@@ -382,5 +404,7 @@
         private Label ratingLabel;
         private Label commentValue;
         private Label commentLabel;
+        private Label budgetValue;
+        private Label budgetLabel;
     }
 }

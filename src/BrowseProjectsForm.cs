@@ -13,6 +13,7 @@ namespace FreelancePlatform.src
     public partial class BrowseProjectsForm : BaseForm
     {
         private int userId;
+        private Repository repository = new Repository();
         public BrowseProjectsForm(int userId)
         {
             InitializeComponent();
@@ -39,10 +40,35 @@ namespace FreelancePlatform.src
             projectsGrid.RowHeadersVisible = false;
             projectsGrid.AllowUserToAddRows = false;
 
-            // Add dummy data
-            projectsGrid.Rows.Add("1", "Website Design", "Design a modern website", "2025-11-15", "500", "UI/UX", "Alice", "View");
-            projectsGrid.Rows.Add("2", "Mobile App", "Develop a Flutter app", "2025-12-01", "1200", "Flutter, Firebase", "Bob", "View");
-            projectsGrid.Rows.Add("3", "Data Analysis", "Analyze sales data", "2025-11-30", "800", "Python, Pandas", "Charlie", "View");
+            setData();
+        }
+
+        void setData()
+        {
+            try
+            {
+                var postedProjects = repository.getProjectList(null, false, searchTextField.Text);
+
+                projectsGrid.Rows.Clear();
+
+                foreach (var project in postedProjects)
+                {
+                    projectsGrid.Rows.Add(
+                        project.projectId,
+                        project.name,
+                        project.description,
+                        project.deadline.ToString("yyyy-MM-dd"),
+                        project.budget.ToString("C"), 
+                        project.skills,
+                        project.clientName,
+                        "View"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading projects: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void projectsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -51,9 +77,9 @@ namespace FreelancePlatform.src
             if (e.RowIndex >= 0 && e.ColumnIndex == projectsGrid.Columns["Action"].Index)
             {
                 string projectId = projectsGrid.Rows[e.RowIndex].Cells["ID"].Value.ToString() ?? "";
-                int projectIdInInteger =  int.Parse(projectId);
+                int projectIdInInteger = int.Parse(projectId);
                 this.Hide();
-                var projectDetail = new ProjectDetailForm(userId: this.userId,isClient: false, projectId: projectIdInInteger, fromBrowseProjects : true);
+                var projectDetail = new ProjectDetailForm(userId: this.userId, isClient: false, projectId: projectIdInInteger, fromBrowseProjects: true);
                 projectDetail.Show();
 
             }
@@ -64,6 +90,11 @@ namespace FreelancePlatform.src
             this.Hide();
             var freelancerProfileForm = new FreelancerProfileForm(this.userId);
             freelancerProfileForm.Show();
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            BrowseProjectsForm_Load(sender, e);
         }
     }
 }

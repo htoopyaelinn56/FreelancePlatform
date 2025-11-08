@@ -65,21 +65,35 @@ namespace FreelancePlatform.src
 
         private void bidButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            MessageBox.Show("bid successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            var browseProjetsForm = new BrowseProjectsForm(this.userId);
-            browseProjetsForm.Show();
+            try
+            {
+                repository.createBidForProject(this.projectId, this.userId, bidAmountDropdown.Value);
+                MessageBox.Show("Bid successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var browseProjetsForm = new BrowseProjectsForm(this.userId);
+                browseProjetsForm.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void completeOrCloseButton_Click(object sender, EventArgs e)
         {
-           
-            var isClose = this.isClient;
-            // repository.updateProjectStatus(this.projectId, isClose ? "closed" : "completed");
-            MessageBox.Show((isClose ? "Closed" : "Completed") + " project successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            var browseProjetsForm = new DashboardForm(this.userId, this.isClient);
-            browseProjetsForm.Show();
-            this.Hide();
+            try
+            {
+                var isClose = this.isClient;
+                repository.updateProjectStatus(this.projectId, isClose ? "closed" : "completed");
+                MessageBox.Show((isClose ? "Closed" : "Completed") + " project successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var browseProjetsForm = new DashboardForm(this.userId, this.isClient);
+                browseProjetsForm.Show();
+                this.Hide();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         void setData() 
@@ -88,14 +102,15 @@ namespace FreelancePlatform.src
             nameValue.Text = projectDetails.name;
             descriptionValue.Text = projectDetails.description;
             deadlineValue.Text = projectDetails.deadline.ToString("yyyy-MM-dd");
-            bidAmountValue.Text = projectDetails.budget.ToString("F2");
-            skillFieldLabel.Text = projectDetails.skills;
+            bidAmountValue.Text = projectDetails.budget.ToString("C");
+            skillFieldValue.Text = projectDetails.skills;
             clientNameValue.Text= projectDetails.clientName;
             freelancerNameValue.Text = projectDetails.freelancerName ?? "";
             statusValue.Text = projectDetails.status;
             descriptionValue.Text = projectDetails.description;
             ratingValue.Text = projectDetails.reviewRating?.ToString() ?? "";
             commentValue.Text = projectDetails.reviewComment ?? "";
+            budgetValue.Text = projectDetails.budget.ToString("C");
 
             var isCompleted = projectDetails.status == "completed";
             var isPosted = projectDetails.status == "posted";
