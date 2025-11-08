@@ -540,5 +540,59 @@ namespace FreelancePlatform.src
                 throw;
             }
         }
+
+        public void createBidForProject(int projectId, int freelancerId, decimal? bidAmount)
+        {
+            try
+            {
+                if (bidAmount == null || bidAmount <= 0)
+                    throw new ApplicationException("Bid Amount must be greater than 0!");
+
+                var conn = DatabaseService.GetConnection();
+
+                // Check if freelancer already has an active bid (status != 'rejected' to allow re-bid)
+                string checkQuery = @"
+                        SELECT COUNT(*) 
+                        FROM Bids 
+                        WHERE project_id = @ProjectId 
+                        AND freelancer_id = @FreelancerId 
+                        AND status != 'rejected';";
+
+                using (var checkCmd = new MySqlCommand(checkQuery, conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@ProjectId", projectId);
+                    checkCmd.Parameters.AddWithValue("@FreelancerId", freelancerId);
+
+                    int existingBidCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                    if (existingBidCount > 0)
+                        throw new ApplicationException("You already have an active bid on this project.");
+                }
+
+                string insertQuery = @"
+                        INSERT INTO Bids (project_id, freelancer_id, bid_amount, status)
+                        VALUES (@ProjectId, @FreelancerId, @BidAmount, 'bid');";
+
+                using (var cmd = new MySqlCommand(insertQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                    cmd.Parameters.AddWithValue("@FreelancerId", freelancerId);
+                    cmd.Parameters.AddWithValue("@BidAmount", bidAmount.Value);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                        throw new ApplicationException("Failed to place bid. Please try again.");
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Database error while creating bid: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
