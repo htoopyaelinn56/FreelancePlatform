@@ -123,7 +123,7 @@ namespace FreelancePlatform.src
             if (this.isClient)
             {
                 completeOrCloseButton.Visible = isPosted;
-                reviewButton.Visible = isCompleted;
+                reviewButton.Visible = isCompleted && projectDetails.reviewRating == null;
             }
             else
             {

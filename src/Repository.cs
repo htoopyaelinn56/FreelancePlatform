@@ -842,6 +842,9 @@ namespace FreelancePlatform.src
                 if (rating < 0 || rating > 5)
                     throw new ApplicationException("Rating must be between 0 and 5.");
 
+                if (string.IsNullOrEmpty(comment))
+                    throw new ApplicationException("Rating comment must be provided.");
+
                 var conn = DatabaseService.GetConnection();
 
                 string checkQuery = "SELECT COUNT(*) FROM Reviews WHERE project_id = @ProjectId";
@@ -855,8 +858,8 @@ namespace FreelancePlatform.src
                 }
 
                 string insertQuery = @"
-                        INSERT INTO Reviews (project_id, rating, comment, created_at)
-                        VALUES (@ProjectId, @Rating, @Comment, NOW())";
+                        INSERT INTO Reviews (project_id, rating, comment)
+                        VALUES (@ProjectId, @Rating, @Comment)";
 
                 using (var cmd = new MySqlCommand(insertQuery, conn))
                 {

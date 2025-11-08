@@ -14,6 +14,7 @@ namespace FreelancePlatform.src
     {
         private int userId;
         private int projectId;
+        private Repository repository = new Repository();
         public ProjectReviewForm(int userId, int projectId)
         {
             InitializeComponent();
@@ -28,17 +29,25 @@ namespace FreelancePlatform.src
 
         private void backArrowLabel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: true, projectId: this.projectId, fromBidAgreement: true);
             projectDetailForm.Show();
         }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            this.Close();
-            MessageBox.Show("Review given successully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: true, projectId: this.projectId, fromBidAgreement: true);
-            projectDetailForm.Show();
+            try
+            {
+                repository.giveReview(this.projectId, Decimal.ToInt32(ratingDropdown.Value), commentTextBox.Text);
+                MessageBox.Show("Review given successully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: true, projectId: this.projectId, fromBidAgreement: true);
+                projectDetailForm.Show();
+                this.Hide();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

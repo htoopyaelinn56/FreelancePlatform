@@ -32,11 +32,11 @@
             projectReviewLabel = new Label();
             commentLabel = new Label();
             ratingLabel = new Label();
-            numericUpDown1 = new NumericUpDown();
+            ratingDropdown = new NumericUpDown();
             starLabel = new Label();
             commentTextBox = new TextBox();
             submitButton = new Button();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ratingDropdown).BeginInit();
             SuspendLayout();
             // 
             // backArrowLabel
@@ -79,14 +79,14 @@
             ratingLabel.TabIndex = 45;
             ratingLabel.Text = "Rating";
             // 
-            // numericUpDown1
+            // ratingDropdown
             // 
-            numericUpDown1.Location = new Point(181, 64);
-            numericUpDown1.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(79, 29);
-            numericUpDown1.TabIndex = 47;
-            numericUpDown1.TextAlign = HorizontalAlignment.Right;
+            ratingDropdown.Location = new Point(181, 64);
+            ratingDropdown.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
+            ratingDropdown.Name = "ratingDropdown";
+            ratingDropdown.Size = new Size(79, 29);
+            ratingDropdown.TabIndex = 47;
+            ratingDropdown.TextAlign = HorizontalAlignment.Right;
             // 
             // starLabel
             // 
@@ -124,7 +124,7 @@
             Controls.Add(submitButton);
             Controls.Add(commentTextBox);
             Controls.Add(starLabel);
-            Controls.Add(numericUpDown1);
+            Controls.Add(ratingDropdown);
             Controls.Add(commentLabel);
             Controls.Add(ratingLabel);
             Controls.Add(backArrowLabel);
@@ -132,7 +132,7 @@
             Name = "ProjectReviewForm";
             Text = "Project Review";
             Load += ProjectReviewForm_Load;
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ratingDropdown).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -143,7 +143,7 @@
         private Label projectReviewLabel;
         private Label commentLabel;
         private Label ratingLabel;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown ratingDropdown;
         private Label starLabel;
         private TextBox commentTextBox;
         private Button submitButton;
