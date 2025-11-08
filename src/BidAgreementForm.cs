@@ -24,22 +24,22 @@ namespace FreelancePlatform.src
 
         private void BidAgreementForm_Load(object? sender, EventArgs? e)
         {
-            bidAgreementDataGrid.ColumnCount = 11 - (isClient ? 0 : 2);
-            bidAgreementDataGrid.Columns[0].Name = "ID";
-            bidAgreementDataGrid.Columns[0].FillWeight = 40;
-            bidAgreementDataGrid.Columns[1].Name = "Title";
-            bidAgreementDataGrid.Columns[2].Name = "Description";
-            bidAgreementDataGrid.Columns[3].Name = "Deadline";
-            bidAgreementDataGrid.Columns[4].Name = "Budget ($)";
-            bidAgreementDataGrid.Columns[5].Name = "Bid Amount ($)";
-            bidAgreementDataGrid.Columns[6].Name = "Required Skill";
-            bidAgreementDataGrid.Columns[7].Name = this.isClient ? "Freelancer" : "Client";
-            bidAgreementDataGrid.Columns[8].Name = "Status";
+            bidAgreementDataGrid.ColumnCount = 12 - (isClient ? 0 : 2);
+            bidAgreementDataGrid.Columns[0].Name = "Bid ID";
+            bidAgreementDataGrid.Columns[1].Name = "Project ID";
+            bidAgreementDataGrid.Columns[2].Name = "Title";
+            bidAgreementDataGrid.Columns[3].Name = "Description";
+            bidAgreementDataGrid.Columns[4].Name = "Deadline";
+            bidAgreementDataGrid.Columns[5].Name = "Budget ($)";
+            bidAgreementDataGrid.Columns[6].Name = "Bid Amount ($)";
+            bidAgreementDataGrid.Columns[7].Name = "Required Skill";
+            bidAgreementDataGrid.Columns[8].Name = this.isClient ? "Freelancer" : "Client";
+            bidAgreementDataGrid.Columns[9].Name = "Status";
 
             if (this.isClient)
             {
-                bidAgreementDataGrid.Columns[9].Name = "Action 1";
-                bidAgreementDataGrid.Columns[10].Name = "Action 2";
+                bidAgreementDataGrid.Columns[10].Name = "Action 1";
+                bidAgreementDataGrid.Columns[11].Name = "Action 2";
             }
 
             bidAgreementDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -63,7 +63,8 @@ namespace FreelancePlatform.src
             foreach (var bid in bidAgreementData)
             {
                 int rowIndex = bidAgreementDataGrid.Rows.Add(
-                    bid.id.ToString(),
+                    bid.id,
+                    bid.projectId,
                     bid.name,
                     bid.description,
                     bid.deadline.ToString("yyyy-MM-dd"),
@@ -113,7 +114,8 @@ namespace FreelancePlatform.src
             if (e.RowIndex < 0 || !isClient) return;
 
             DataGridViewRowCollection rows = bidAgreementDataGrid.Rows;
-            string projectId = rows[e.RowIndex].Cells["ID"].Value.ToString()!;
+            int projectId = int.Parse(rows[e.RowIndex].Cells["Project ID"].Value.ToString()!);
+            int bidId = int.Parse(rows[e.RowIndex].Cells["Bid ID"].Value.ToString()!);
             string buttonName = bidAgreementDataGrid.Columns[e.ColumnIndex].Name;
             string status = rows[e.RowIndex].Cells["Status"].Value.ToString()!.ToLower();
 
@@ -121,14 +123,21 @@ namespace FreelancePlatform.src
             {
                 if (status == "bid")
                 {
-                    // Accept button
-                    MessageBox.Show($"Accepted bid for project ID: {projectId}");
+                    try
+                    {
+                        repository.respondBid(projectId, bidId,  true);
+                        MessageBox.Show($"Accepted bid for project ID: {projectId}");
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                 }
                 else
                 {
                     this.Hide();
-                    int projectIdInteger = int.Parse(projectId);
-                    var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: this.isClient, projectId: projectIdInteger, fromBidAgreement: true);
+                    var projectDetailForm = new ProjectDetailForm(userId: this.userId, isClient: this.isClient, projectId: projectId, fromBidAgreement: true);
                     projectDetailForm.Show();
                 }
             }
@@ -136,8 +145,15 @@ namespace FreelancePlatform.src
             {
                 if (status == "bid")
                 {
-                    // Reject button
-                    MessageBox.Show($"Rejected bid for project ID: {projectId}");
+                    try
+                    {
+                        repository.respondBid(projectId, bidId, false);
+                        MessageBox.Show($"Rejected bid for project ID: {projectId}");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
 
