@@ -13,4 +13,4 @@
 ~~Bids Table~~ <br>
 ~~Reviews Table~~ <br>
 
-Check component variable names
+~~Check component variable names~~
