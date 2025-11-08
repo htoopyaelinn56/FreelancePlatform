@@ -70,7 +70,7 @@ namespace FreelancePlatform.src
                 string projectId = projectsGrid.Rows[e.RowIndex].Cells["ID"].Value.ToString() ?? "";
                 int projectIdInInteger = int.Parse(projectId);
                 this.Hide();
-                var projectDetail = new ProjectDetailForm(userId: this.userId, isClient: false, projectId: projectIdInInteger, fromDashboard: true);
+                var projectDetail = new ProjectDetailForm(userId: this.userId, isClient: this.isClient, projectId: projectIdInInteger, fromDashboard: true);
                 projectDetail.Show();
 
             }
